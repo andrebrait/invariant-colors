@@ -1,6 +1,6 @@
 {
   "$schema": "vscode://schemas/color-theme",
-  "name": "Sublime Monokai 2",
+  "name": "Invariant",
   "type": "dark",
   "semanticHighlighting": true,
   "colors": {

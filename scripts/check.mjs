@@ -5,12 +5,12 @@ const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 const readJsonc = async path => JSON.parse((await readFile(path, 'utf8')).replace(/^\s*\/\/.*$/gm, ''));
 const [manifest, theme, intellij, vim] = await Promise.all([
   readJson('package.json'),
-  readJsonc('themes/sublime-monokai-2-color-theme.json'),
-  readFile('Sublime Monokai 2.icls', 'utf8'),
-  readFile('colors/sublime_monokai_2.vim', 'utf8')
+  readJsonc('themes/invariant-color-theme.json'),
+  readFile('Invariant.icls', 'utf8'),
+  readFile('colors/invariant.vim', 'utf8')
 ]);
 
-assert.equal(manifest.contributes.themes[0].path, './themes/sublime-monokai-2-color-theme.json');
+assert.equal(manifest.contributes.themes[0].path, './themes/invariant-color-theme.json');
 assert.equal(theme.semanticHighlighting, true);
 assert.equal(theme.colors['editor.background'], '#191a1c');
 assert.equal(theme.colors['editorGutter.background'], '#191a1c');

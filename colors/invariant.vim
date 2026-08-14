@@ -1,4 +1,4 @@
-" Sublime Monokai 2 — a semantic dark color scheme.
+" Invariant — a semantic dark color scheme based on Monokai.
 " Fixed surfaces copied from Islands Dark 2026.2:
 " editor, console, and gutter #191a1c; documentation and completion popups #27282b.
 
@@ -7,7 +7,7 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let g:colors_name = 'sublime_monokai_2'
+let g:colors_name = 'invariant'
 set background=dark
 
 highlight Normal       guifg=#cfbfad guibg=#191a1c ctermfg=250 ctermbg=235

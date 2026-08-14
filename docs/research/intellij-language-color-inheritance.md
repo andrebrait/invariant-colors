@@ -27,7 +27,7 @@ Those fragments explicitly override concepts including JavaScript local/global v
 
 Java remains the reference vocabulary. The generic layer should carry every relationship it can express:
 
-| Semantic identity | Language Default | Sublime Monokai 2 result |
+| Semantic identity | Language Default | Invariant result |
 |---|---|---|
 | Identifier/local/global variable | `DEFAULT_IDENTIFIER`, `DEFAULT_LOCAL_VARIABLE`, `DEFAULT_GLOBAL_VARIABLE` | warm neutral `#cfbfad` |
 | Instance field/property | `DEFAULT_INSTANCE_FIELD` | warm neutral `#cfbfad` |

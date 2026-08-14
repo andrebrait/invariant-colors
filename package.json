@@ -1,13 +1,13 @@
 {
-  "name": "sublime-monokai-2",
-  "displayName": "Sublime Monokai 2",
-  "description": "The semantic Monokai color scheme for Visual Studio Code.",
+  "name": "invariant-colors",
+  "displayName": "Invariant",
+  "description": "A semantic dark editor color scheme based on Monokai, where color identifies what a symbol is and formatting shows how it is used.",
   "version": "0.1.0",
   "publisher": "andrebrait",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrebrait/sublime-monokai-2.git"
+    "url": "https://github.com/andrebrait/invariant-colors.git"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -24,9 +24,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Sublime Monokai 2",
+        "label": "Invariant",
         "uiTheme": "vs-dark",
-        "path": "./themes/sublime-monokai-2-color-theme.json"
+        "path": "./themes/invariant-color-theme.json"
       }
     ]
   },

@@ -1,10 +1,10 @@
-# Sublime Monokai 2
+# Invariant
 
-Sublime Monokai 2 is a dark editor color scheme I have carried forward from an Eclipse theme I started using in 2014. It is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
+Invariant is a semantic dark editor color scheme based on Monokai. It grew from an Eclipse theme I started using in 2014 and is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
 
 The scheme uses color to identify what a symbol is and formatting to show how it is being used. Common code stays relatively quiet, while types, parameters, methods, and reserved words remain easy to find.
 
-![Java example using Sublime Monokai 2](docs/images/intellij-java.jpeg)
+![Java example using Invariant](docs/images/intellij-java.jpeg)
 
 ## Semantic colors
 
@@ -47,13 +47,13 @@ The Java example includes a record, fields, parameters, a reassigned local, stat
 
 ### Kotlin
 
-![Kotlin example using Sublime Monokai 2](docs/images/intellij-kotlin.jpeg)
+![Kotlin example using Invariant](docs/images/intellij-kotlin.jpeg)
 
 Kotlin follows the same language-default meanings for types, parameters, variables, and functions. Kotlin-specific entries are kept only where the plugin exposes a distinct concept, such as named arguments, smart casts, or function-literal punctuation. Lambda arrows remain neutral, matching Java.
 
 ### Python
 
-![Python example using Sublime Monokai 2](docs/images/intellij-python.jpeg)
+![Python example using Invariant](docs/images/intellij-python.jpeg)
 
 Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
 
@@ -75,18 +75,18 @@ Other IntelliJ languages receive the semantic Language Defaults automatically. T
 
 ### JetBrains IDEs
 
-Import [`Sublime Monokai 2.icls`](Sublime%20Monokai%202.icls) from **Settings → Editor → Color Scheme → Import Scheme**.
+Import [`Invariant.icls`](Invariant.icls) from **Settings → Editor → Color Scheme → Import Scheme**.
 
 ### Visual Studio Code
 
-Open this directory in Visual Studio Code and press `F5` to test the extension in an Extension Development Host. Select **Sublime Monokai 2** from **Preferences: Color Theme**.
+Open this directory in Visual Studio Code and press `F5` to test the extension in an Extension Development Host. Select **Invariant** from **Preferences: Color Theme**.
 
 ### Vim or Neovim
 
-Copy [`colors/sublime_monokai_2.vim`](colors/sublime_monokai_2.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`, then configure:
+Copy [`colors/invariant.vim`](colors/invariant.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`, then configure:
 
 ```vim
-colorscheme sublime_monokai_2
+colorscheme invariant
 ```
 
 True-color terminals give the intended palette; a 256-color fallback is included.
