@@ -1,4 +1,5 @@
 " Invariant — a semantic dark color scheme based on Monokai.
+" Derived from "Sublime Text 2" by Filip Minev, distributed with Eclipse Color Theme under EPL-1.0.
 " Fixed surfaces copied from Islands Dark 2026.2:
 " editor, console, and gutter #191a1c; documentation and completion popups #27282b.
 

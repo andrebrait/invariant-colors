@@ -107,6 +107,10 @@ The console, documentation popup, completion popup, and gutter backgrounds remai
 npm test
 ```
 
+## Provenance
+
+Invariant descends from the [Sublime Text 2](https://github.com/eclipse-color-theme/eclipse-color-theme/blob/19b3d30e7d20f358c1a6638829ddddbe1e98cd84/com.github.eclipsecolortheme/src/com/github/eclipsecolortheme/themes/sublime-text-2.xml) Eclipse color theme by Filip Minev, distributed with Eclipse Color Theme under EPL-1.0. That scheme is based on [Monokai](https://monokai.pro/history), created by Wimer Hazenberg. Invariant preserves its distinctive semantic palette while incorporating years of changes and ports to current editors.
+
 ## License
 
-[MIT](LICENSE)
+Invariant is licensed under the [Eclipse Public License 2.0](LICENSE). Its source is available in this repository under the same license.

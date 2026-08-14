@@ -1,5 +1,6 @@
 {
   "$schema": "vscode://schemas/color-theme",
+  // Derived from "Sublime Text 2" by Filip Minev, distributed with Eclipse Color Theme under EPL-1.0.
   "name": "Invariant",
   "type": "dark",
   "semanticHighlighting": true,
