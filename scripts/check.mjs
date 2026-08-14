@@ -24,8 +24,14 @@ assert.equal(theme.semanticTokenColors['method.abstract'], '#bed6ff');
 assert.notEqual(theme.semanticTokenColors.method, theme.semanticTokenColors['method.abstract']);
 assert.equal(theme.semanticTokenColors.variable, theme.semanticTokenColors.property);
 assert.equal(theme.semanticTokenColors.parameter, '#79abff');
+assert.deepEqual(theme.semanticTokenColors.selfParameter, { foreground: '#ff007f', bold: true });
+assert.deepEqual(theme.semanticTokenColors.clsParameter, { foreground: '#ff007f', bold: true });
 assert.deepEqual(theme.semanticTokenColors['*.static'], { italic: true });
 assert.equal(theme.tokenColors.find(rule => rule.name === 'Comments').settings.foreground, '#ffffff');
+assert.deepEqual(theme.tokenColors.find(rule => rule.name === 'Python self and cls').settings, {
+  foreground: '#ff007f',
+  fontStyle: 'bold'
+});
 for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
   assert.equal(theme.semanticTokenColors[type], '#52e3f6');
 }
@@ -64,7 +70,7 @@ for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
     ['KOTLIN_QUEST', 'DEFAULT_OPERATION_SIGN'],
     ['KOTLIN_VARIABLE_AS_FUNCTION', 'DEFAULT_FUNCTION_CALL'],
     ['KOTLIN_VARIABLE_AS_FUNCTION_LIKE', 'DEFAULT_FUNCTION_CALL'],
-    ['PY.SELF_PARAMETER', 'DEFAULT_PREDEFINED_SYMBOL'],
+    ['PY.SELF_PARAMETER', 'DEFAULT_KEYWORD'],
     ['PY.ANNOTATION', 'DEFAULT_CLASS_REFERENCE'],
     ['PY.TYPE_PARAMETER', 'TYPE_PARAMETER_NAME_ATTRIBUTES']
   ]) {
@@ -104,5 +110,6 @@ assert.match(vim, /highlight SM2Signature guifg=#bed6ff/);
 assert.match(vim, /highlight Comment\s+guifg=#ffffff/);
 assert.match(vim, /highlight Normal\s+guifg=#cfbfad guibg=#191a1c/);
 assert.match(vim, /highlight Pmenu\s+guifg=#cfbfad guibg=#27282b/);
+assert.match(vim, /highlight! link pythonClassVar Statement/);
 assert.match(vim, /@lsp\.mod\.static SM2Static/);
 console.log('Theme definitions are valid and preserve the semantic color contract.');

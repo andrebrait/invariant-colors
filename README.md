@@ -59,7 +59,7 @@ Kotlin follows the same language-default meanings for types, parameters, variabl
 
 ![Python example using Invariant](docs/images/intellij-python.png)
 
-Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
+Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
 
 ## Language support
 

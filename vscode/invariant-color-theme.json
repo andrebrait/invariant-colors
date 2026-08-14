@@ -165,6 +165,19 @@
       }
     },
     {
+      "name": "Python self and cls",
+      "scope": [
+        "variable.parameter.function.language.special.self.python",
+        "variable.language.special.self.python",
+        "variable.parameter.function.language.special.cls.python",
+        "variable.language.special.cls.python"
+      ],
+      "settings": {
+        "foreground": "#ff007f",
+        "fontStyle": "bold"
+      }
+    },
+    {
       "name": "Variables and properties",
       "scope": [
         "variable",
@@ -217,6 +230,14 @@
     "enum": "#52e3f6",
     "typeParameter": "#bfa4a4",
     "parameter": "#79abff",
+    "selfParameter": {
+      "foreground": "#ff007f",
+      "bold": true
+    },
+    "clsParameter": {
+      "foreground": "#ff007f",
+      "bold": true
+    },
     "variable": "#cfbfad",
     "variable.defaultLibrary": {
       "foreground": "#ff007f",

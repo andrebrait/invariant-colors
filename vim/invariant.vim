@@ -56,6 +56,7 @@ highlight DiagnosticHint  guifg=#659c6b guibg=NONE ctermfg=71  ctermbg=NONE
 highlight SM2Parameter guifg=#79abff guibg=NONE ctermfg=111 ctermbg=NONE
 highlight SM2Signature guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2Static    guifg=NONE    guibg=NONE gui=italic ctermfg=NONE ctermbg=NONE cterm=italic
+highlight! link pythonClassVar Statement
 
 if has('nvim')
   highlight! link @variable Identifier
