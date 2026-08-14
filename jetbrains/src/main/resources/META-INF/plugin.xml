@@ -1,0 +1,21 @@
+<idea-plugin>
+  <id>com.github.andrebrait.invariant</id>
+  <name>Invariant</name>
+  <vendor url="https://github.com/andrebrait">André Brait</vendor>
+
+  <description><![CDATA[
+    <p>Invariant is a semantic dark editor color scheme based on Monokai.</p>
+    <p>Color identifies what a symbol is; formatting shows how it is being used. Common code stays relatively quiet, while types, parameters, methods, reserved names, annotations, and comments remain easy to find.</p>
+    <p>The scheme provides explicit coverage for Java, Kotlin, Python, CSS, and shell scripts, with Language Defaults for other supported languages.</p>
+  ]]></description>
+
+  <change-notes><![CDATA[
+    <p>Initial JetBrains Marketplace release.</p>
+  ]]></change-notes>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <bundledColorScheme path="colorSchemes/invariant" id="Invariant"/>
+  </extensions>
+</idea-plugin>

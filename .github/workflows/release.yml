@@ -1,0 +1,67 @@
+name: Publish release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+env:
+  PLUGIN_VERSION: ${{ github.event.release.tag_name }}
+
+jobs:
+  vscode:
+    name: Visual Studio Marketplace
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Check release version
+        run: test "$(node -p "require('./vscode/package.json').version")" = "$PLUGIN_VERSION"
+      - run: npm test --prefix vscode
+      - run: npm run package --prefix vscode
+      - name: Attach VS Code extension
+        run: gh release upload "$GITHUB_REF_NAME" "vscode/invariant-colors-$PLUGIN_VERSION.vsix" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: npm run publish --prefix vscode
+
+  jetbrains:
+    name: JetBrains Marketplace
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
+      CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: 9.6.1
+      - run: gradle -p jetbrains buildPlugin verifyPlugin
+      - name: Attach JetBrains plugin
+        run: gh release upload "$GITHUB_REF_NAME" "jetbrains/build/distributions/invariant-$PLUGIN_VERSION.zip" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: gradle -p jetbrains publishPlugin

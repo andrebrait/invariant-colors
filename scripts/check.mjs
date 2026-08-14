@@ -8,10 +8,12 @@ const [manifest, theme, intellij, vim] = await Promise.all([
   readJson('vscode/package.json'),
   readJson('vscode/invariant-color-theme.json'),
   read('jetbrains/invariant.icls'),
-  read('vim/invariant.vim')
+  read('colors/invariant.vim')
 ]);
 
 assert.equal(manifest.contributes.themes[0].path, './invariant-color-theme.json');
+assert.match(manifest.description, /theme/i);
+assert.equal(manifest.publisher, 'andrebrait');
 assert.equal(theme.semanticHighlighting, true);
 assert.equal(theme.colors['editor.background'], '#121314');
 assert.equal(theme.colors['editorGutter.background'], '#121314');

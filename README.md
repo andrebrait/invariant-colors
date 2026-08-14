@@ -79,15 +79,28 @@ Other IntelliJ languages receive the semantic Language Defaults automatically. T
 
 ### JetBrains IDEs
 
-Import [`jetbrains/invariant.icls`](jetbrains/invariant.icls) from **Settings → Editor → Color Scheme → Import Scheme**.
+Install **Invariant** from the Plugins Marketplace, or import [`jetbrains/invariant.icls`](jetbrains/invariant.icls) manually from **Settings → Editor → Color Scheme → Import Scheme**.
 
 ### Visual Studio Code
 
-Open the [`vscode`](vscode) directory in Visual Studio Code and press `F5` to test the extension in an Extension Development Host. Select **Invariant** from **Preferences: Color Theme**.
+Install **Invariant** from the Extensions Marketplace and select it from **Preferences: Color Theme**. To test the source locally, open the [`vscode`](vscode) directory in Visual Studio Code and press `F5`.
 
 ### Vim or Neovim
 
-Copy [`vim/invariant.vim`](vim/invariant.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`, then configure:
+With [lazy.nvim](https://github.com/folke/lazy.nvim), add:
+
+```lua
+{
+  "andrebrait/invariant-colors",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    vim.cmd.colorscheme("invariant")
+  end,
+}
+```
+
+For vim-plug, use `Plug 'andrebrait/invariant-colors'`. You can also copy [`colors/invariant.vim`](colors/invariant.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`. Then configure:
 
 ```vim
 colorscheme invariant
@@ -111,7 +124,15 @@ The Visual Studio Code port instead uses the current VS Code Dark surfaces: `#12
 
 ```sh
 npm test --prefix vscode
+npm run package --prefix vscode
+gradle -p jetbrains buildPlugin verifyPlugin
 ```
+
+## Releasing
+
+Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). The tag must match the version in [`vscode/package.json`](vscode/package.json), using `1.0.0` rather than `v1.0.0`. The workflow attaches both installable archives to the GitHub Release, publishes the VS Code extension through trusted publishing, and publishes the signed JetBrains plugin. Vim and Neovim package managers use the same Git tag directly.
+
+Before the first release, the JetBrains Marketplace plugin must be created manually and the repository must have `PUBLISH_TOKEN`, `PRIVATE_KEY`, `PRIVATE_KEY_PASSWORD`, and `CERTIFICATE_CHAIN` Actions secrets. The Visual Studio Marketplace publisher must trust this repository and `.github/workflows/release.yml` through its GitHub Actions publishing policy.
 
 ## Provenance
 

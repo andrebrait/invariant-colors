@@ -1,13 +1,17 @@
 {
   "name": "invariant-colors",
   "displayName": "Invariant",
-  "description": "A semantic dark editor color scheme based on Monokai, where color identifies what a symbol is and formatting shows how it is used.",
+  "description": "A semantic dark editor theme based on Monokai, where color identifies what a symbol is and formatting shows how it is used.",
   "version": "0.1.0",
   "publisher": "andrebrait",
-  "license": "EPL-2.0",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/andrebrait/invariant-colors.git"
+  },
+  "homepage": "https://github.com/andrebrait/invariant-colors#readme",
+  "bugs": {
+    "url": "https://github.com/andrebrait/invariant-colors/issues"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -19,7 +23,20 @@
     "dark",
     "monokai",
     "semantic",
-    "theme"
+    "theme",
+    "color-theme"
+  ],
+  "galleryBanner": {
+    "color": "#191a1c",
+    "theme": "dark"
+  },
+  "icon": "images/icon.png",
+  "files": [
+    "invariant-color-theme.json",
+    "images/icon.png",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "contributes": {
     "themes": [
@@ -31,6 +48,8 @@
     ]
   },
   "scripts": {
-    "test": "node ../scripts/check.mjs"
+    "test": "node ../scripts/check.mjs",
+    "package": "npx --yes @vscode/vsce@3.9.2 package --githubBranch master",
+    "publish": "npx --yes @vscode/vsce@3.9.2 publish --githubBranch master --oidc"
   }
 }

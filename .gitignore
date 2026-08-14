@@ -3,3 +3,7 @@
 *.ipr
 *.iws
 .vscode/
+jetbrains/.gradle/
+jetbrains/.intellijPlatform/
+jetbrains/build/
+vscode/*.vsix
