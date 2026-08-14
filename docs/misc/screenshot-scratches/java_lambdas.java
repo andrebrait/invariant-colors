@@ -18,5 +18,5 @@ private static void log(String s, char expected) {
 }
 
 void main() {
-    filter(List.of("alpha"), 'a');
+    System.out.println(filter(List.of("alpha"), (char) (Math.random() * 100)));
 }
