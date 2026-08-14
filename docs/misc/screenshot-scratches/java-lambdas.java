@@ -1,5 +1,6 @@
 // ## SELECTION STARTS HERE ##
 private static List<String> filter(List<String> strings, char expected) {
+    // Build this once so both predicates capture the same value.
     String charAsString = String.valueOf(expected);
     return strings.stream()
             .filter(s -> s.contains(charAsString))
@@ -11,3 +12,11 @@ private static List<String> filter(List<String> strings, char expected) {
             .collect(Collectors.toList());
 }
 // ## SELECTION ENDS HERE ##
+
+private static void log(String s, char expected) {
+    // do nothing
+}
+
+void main() {
+    filter(List.of("alpha"), 'a');
+}

@@ -3,17 +3,21 @@ fun interface Matcher {
     fun matches(value: String): Boolean
 }
 
-data class SearchResult(val value: String, val score: Int)
+@JvmInline
+value class Score(val value: Int)
+
+data class SearchResult(val value: String, val score: Score)
 
 class SearchService(private val values: List<String>) {
     fun find(prefix: String, matcher: Matcher): List<SearchResult> {
+        // Normalize once before entering the lazy pipeline.
         var normalized = prefix.trim()
         normalized = normalized.lowercase()
 
         return values.asSequence()
             .filter { value -> matcher.matches(value) }
             .take(LIMIT)
-            .map { value -> SearchResult(normalized + value, value.length) }
+            .map { value -> SearchResult(normalized + value, Score(value.length)) }
             .toList()
     }
 

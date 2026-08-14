@@ -1,6 +1,7 @@
 // ## SELECTION STARTS HERE ##
 import java.util.List;
 
+@FunctionalInterface
 interface Matcher {
     boolean matches(String value);
 }
@@ -12,17 +13,22 @@ static final class SearchService {
     private final List<String> values;
 
     SearchService(List<String> values) {
+        // Normalize the source collection at the boundary.
         this.values = List.copyOf(values);
     }
 
-    SearchResult matchesFirst(String prefix) {
+    SearchResult matchesFirst() {
         int remaining = LIMIT;
         remaining--;
 
-        Matcher matcher = value -> value.startsWith(prefix);
+        Matcher matcher = value -> !value.isBlank();
         String candidate = values.getFirst();
         boolean match = candidate != null && matcher.matches(candidate);
         return match ? new SearchResult(candidate, remaining) : null;
     }
 }
 // ## SELECTION ENDS HERE ##
+
+void main(){
+    SearchResult sr = new SearchService(List.of("a")).matchesFirst();
+}
