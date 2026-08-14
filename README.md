@@ -4,7 +4,7 @@ Invariant is a semantic dark editor color scheme based on Monokai. It grew from 
 
 The scheme uses color to identify what a symbol is and formatting to show how it is being used. Common code stays relatively quiet, while types, parameters, methods, and reserved words remain easy to find.
 
-![Java example using Invariant](docs/images/intellij-java.jpeg)
+![Java example using Invariant](docs/images/intellij-java.png)
 
 ## Semantic colors
 
@@ -12,17 +12,17 @@ The same kind of symbol should keep the same foreground wherever it appears. A c
 
 | Meaning | Style | Examples |
 | --- | --- | --- |
-| Variables and fields | Warm neutral `#cfbfad` | Locals, instance fields, global variables |
-| Parameters | Blue `#79abff` | Function, method, and lambda parameters |
-| Types | Cyan `#52e3f6` | Classes, interfaces, records |
-| Type parameters | Muted rose `#bfa4a4` | Generic type declarations and references |
-| Implemented methods | Green `#a7ec21` | Concrete declarations and calls |
-| Signature-only methods | Pale blue `#bed6ff` | Abstract and interface methods |
-| Keywords and reserved names | Bold pink `#ff007f` | `class`, `return`, `this`, `self`, `null` |
-| Strings | Pale yellow `#ece47e` | String and character literals |
-| Numbers | Purple `#c48cff` | Numeric literals |
-| Annotations and metadata | White `#ffffff` | Annotations and attribute names |
-| Comments | White `#ffffff` | Line, block, and documentation comments |
+| Variables and fields | ![#cfbfad](docs/images/swatches/cfbfad.svg) Warm neutral `#cfbfad` | Locals, instance fields, global variables |
+| Parameters | ![#79abff](docs/images/swatches/79abff.svg) Blue `#79abff` | Function, method, and lambda parameters |
+| Types | ![#52e3f6](docs/images/swatches/52e3f6.svg) Cyan `#52e3f6` | Classes, interfaces, records |
+| Type parameters | ![#bfa4a4](docs/images/swatches/bfa4a4.svg) Muted rose `#bfa4a4` | Generic type declarations and references |
+| Implemented methods | ![#a7ec21](docs/images/swatches/a7ec21.svg) Green `#a7ec21` | Concrete declarations and calls |
+| Signature-only methods | ![#bed6ff](docs/images/swatches/bed6ff.svg) Pale blue `#bed6ff` | Abstract and interface methods |
+| Keywords and reserved names | ![#ff007f](docs/images/swatches/ff007f.svg) Bold pink `#ff007f` | `class`, `return`, `this`, `self`, `null` |
+| Strings | ![#ece47e](docs/images/swatches/ece47e.svg) Pale yellow `#ece47e` | String and character literals |
+| Numbers | ![#c48cff](docs/images/swatches/c48cff.svg) Purple `#c48cff` | Numeric literals |
+| Annotations and metadata | ![#ffffff](docs/images/swatches/ffffff.svg) White `#ffffff` | Annotations and attribute names |
+| Comments | ![#ffffff](docs/images/swatches/ffffff.svg) White `#ffffff` | Line, block, and documentation comments |
 
 Comments are intentionally prominent. A comment should be noticed, and a file with too many comments should look like it has too many comments.
 
@@ -45,15 +45,19 @@ Method implementation is the deliberate foreground exception. Concrete methods a
 
 The Java example includes a record, fields, parameters, a reassigned local, static members, an interface method, and captured values inside lambdas. The parameter declarations are blue; their captured uses inside the lambda are neutral. Concrete calls are green, while the interface call uses the signature-only method color.
 
+![Java lambda captures using Invariant](docs/images/intellij-java-lambdas.png)
+
+The lambda parameter remains blue, while values captured from the enclosing method gain a neutral highlight without changing their underlying semantic color. The [same capture with IntelliJ inlay hints enabled](docs/images/intellij-java-lambdas-hints.png) is also kept for comparison.
+
 ### Kotlin
 
-![Kotlin example using Invariant](docs/images/intellij-kotlin.jpeg)
+![Kotlin example using Invariant](docs/images/intellij-kotlin.png)
 
 Kotlin follows the same language-default meanings for types, parameters, variables, and functions. Kotlin-specific entries are kept only where the plugin exposes a distinct concept, such as named arguments, smart casts, or function-literal punctuation. Lambda arrows remain neutral, matching Java.
 
 ### Python
 
-![Python example using Invariant](docs/images/intellij-python.jpeg)
+![Python example using Invariant](docs/images/intellij-python.png)
 
 Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
 
@@ -75,15 +79,15 @@ Other IntelliJ languages receive the semantic Language Defaults automatically. T
 
 ### JetBrains IDEs
 
-Import [`Invariant.icls`](Invariant.icls) from **Settings → Editor → Color Scheme → Import Scheme**.
+Import [`jetbrains/invariant.icls`](jetbrains/invariant.icls) from **Settings → Editor → Color Scheme → Import Scheme**.
 
 ### Visual Studio Code
 
-Open this directory in Visual Studio Code and press `F5` to test the extension in an Extension Development Host. Select **Invariant** from **Preferences: Color Theme**.
+Open the [`vscode`](vscode) directory in Visual Studio Code and press `F5` to test the extension in an Extension Development Host. Select **Invariant** from **Preferences: Color Theme**.
 
 ### Vim or Neovim
 
-Copy [`colors/invariant.vim`](colors/invariant.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`, then configure:
+Copy [`vim/invariant.vim`](vim/invariant.vim) into `~/.vim/colors/` or `~/.config/nvim/colors/`, then configure:
 
 ```vim
 colorscheme invariant
@@ -95,16 +99,18 @@ True-color terminals give the intended palette; a 256-color fallback is included
 
 JetBrains IDEs can distinguish captures and whether a Java method has an implementation. Visual Studio Code and Neovim preserve the distinctions emitted by their language services, but a color theme cannot infer semantic information that the service does not provide. Plain Vim syntax highlighting cannot determine captures or abstract versus concrete methods.
 
-### IntelliJ background inheritance
+### Platform backgrounds
 
 The IntelliJ scheme inherits from Islands Dark. IntelliJ inherits a text-attribute entry as a whole, so the scheme cannot keep its warm-neutral default foreground while inheriting only the editor background. The `TEXT` background therefore copies Islands Dark 2026.2's `#191a1c` value.
 
-The console, documentation popup, completion popup, and gutter backgrounds remain inherited. Their current Islands Dark values are recorded in comments in the `.icls` file and used by the fixed-color ports.
+The console, documentation popup, completion popup, and gutter backgrounds remain inherited. Their current Islands Dark values are recorded in comments in the `.icls` file. The Vim port uses those same fixed surfaces.
+
+The Visual Studio Code port instead uses the current VS Code Dark surfaces: `#121314` for the editor and gutter, `#191a1b` for the terminal and peek views, and `#202122` for documentation and completion widgets.
 
 ## Verification
 
 ```sh
-npm test
+npm test --prefix vscode
 ```
 
 ## Provenance

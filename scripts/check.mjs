@@ -1,22 +1,23 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
-const readJsonc = async path => JSON.parse((await readFile(path, 'utf8')).replace(/^\s*\/\/.*$/gm, ''));
+const root = new URL('../', import.meta.url);
+const read = path => readFile(new URL(path, root), 'utf8');
+const readJson = async path => JSON.parse(await read(path));
 const [manifest, theme, intellij, vim] = await Promise.all([
-  readJson('package.json'),
-  readJsonc('themes/invariant-color-theme.json'),
-  readFile('Invariant.icls', 'utf8'),
-  readFile('colors/invariant.vim', 'utf8')
+  readJson('vscode/package.json'),
+  readJson('vscode/invariant-color-theme.json'),
+  read('jetbrains/invariant.icls'),
+  read('vim/invariant.vim')
 ]);
 
-assert.equal(manifest.contributes.themes[0].path, './themes/invariant-color-theme.json');
+assert.equal(manifest.contributes.themes[0].path, './invariant-color-theme.json');
 assert.equal(theme.semanticHighlighting, true);
-assert.equal(theme.colors['editor.background'], '#191a1c');
-assert.equal(theme.colors['editorGutter.background'], '#191a1c');
-assert.equal(theme.colors['terminal.background'], '#191a1c');
+assert.equal(theme.colors['editor.background'], '#121314');
+assert.equal(theme.colors['editorGutter.background'], '#121314');
+assert.equal(theme.colors['terminal.background'], '#191a1b');
 for (const popup of ['editorWidget.background', 'editorSuggestWidget.background', 'editorHoverWidget.background']) {
-  assert.equal(theme.colors[popup], '#27282b');
+  assert.equal(theme.colors[popup], '#202122');
 }
 assert.equal(theme.semanticTokenColors.method, '#a7ec21');
 assert.equal(theme.semanticTokenColors['method.abstract'], '#bed6ff');

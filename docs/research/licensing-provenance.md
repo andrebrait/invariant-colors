@@ -6,7 +6,7 @@ Scope: the ancestry and licensing evidence for Invariant's editor color definiti
 
 Invariant's original palette matches the Eclipse Color Theme **Sublime Text 2** definition attributed to **Filip Minev**, not the similarly named **Monokai-Sublime Text 2** page linked during this review.
 
-The matching definition was distributed in the Eclipse Color Theme repository under the Eclipse Public License 1.0. For a simple, internally consistent repository license, the documented path is to use **EPL-2.0** for Invariant and preserve the upstream attribution. EPL-1.0 allows a recipient to choose a later Eclipse Public License published by the Eclipse Foundation. Before this review, the root `LICENSE` said Apache-2.0 while `package.json` said MIT; neither was supported by the discovered upstream provenance.
+The matching definition was distributed in the Eclipse Color Theme repository under the Eclipse Public License 1.0. For a simple, internally consistent repository license, the documented path is to use **EPL-2.0** for Invariant and preserve the upstream attribution. EPL-1.0 allows a recipient to choose a later Eclipse Public License published by the Eclipse Foundation. Before this review, the root `LICENSE` said Apache-2.0 while `vscode/package.json` said MIT; neither was supported by the discovered upstream provenance.
 
 ## Matching source
 

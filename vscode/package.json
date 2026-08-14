@@ -26,11 +26,11 @@
       {
         "label": "Invariant",
         "uiTheme": "vs-dark",
-        "path": "./themes/invariant-color-theme.json"
+        "path": "./invariant-color-theme.json"
       }
     ]
   },
   "scripts": {
-    "test": "node scripts/check.mjs"
+    "test": "node ../scripts/check.mjs"
   }
 }
