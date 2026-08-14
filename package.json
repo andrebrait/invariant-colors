@@ -1,0 +1,36 @@
+{
+  "name": "sublime-monokai-2",
+  "displayName": "Sublime Monokai 2",
+  "description": "The semantic Monokai color scheme for Visual Studio Code.",
+  "version": "0.1.0",
+  "publisher": "andrebrait",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrebrait/sublime-monokai-2.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "dark",
+    "monokai",
+    "semantic",
+    "theme"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Sublime Monokai 2",
+        "uiTheme": "vs-dark",
+        "path": "./themes/sublime-monokai-2-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/check.mjs"
+  }
+}
