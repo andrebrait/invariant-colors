@@ -1,6 +1,14 @@
-# Invariant
+<div align="center">
 
-Invariant is a semantic dark editor color scheme based on Monokai. It grew from an Eclipse theme I started using in 2014 and is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
+<img src="assets/icon.svg" alt="Invariant logo" width="150">
+
+<h1>Invariant</h1>
+
+<p><strong>A semantic dark editor color scheme based on Monokai.</strong></p>
+
+</div>
+
+Invariant grew from an Eclipse theme I started using in 2014 and is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
 
 The scheme uses color to identify what a symbol is and formatting to show how it is being used. Common code stays relatively quiet, while types, parameters, methods, and reserved words remain easy to find.
 
