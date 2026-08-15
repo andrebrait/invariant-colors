@@ -4,13 +4,15 @@ Scope: public, supported authentication paths available on August 15, 2026. Sour
 
 ## Conclusion
 
-For a new GitHub Actions setup, use **Microsoft Entra workload identity federation** with a user-assigned managed identity, `azure/login`, and `vsce publish --azure-credential`.
+Invariant uses an existing Marketplace token with [`HaaLeo/publish-vscode-extension@v2`](https://github.com/marketplace/actions/publish-vs-code-extension), passed through the `VS_MARKETPLACE_TOKEN` GitHub Actions secret. The action publishes the already-built VSIX through VSCE.
+
+For a new setup without an existing Marketplace token, use **Microsoft Entra workload identity federation** with a user-assigned managed identity, `azure/login`, and `vsce publish --azure-credential`.
 
 Do not use `vsce publish --oidc` yet. OIDC trusted publishing exists in VSCE's prerelease code, but Microsoft deliberately [hid the option as unannounced](https://github.com/microsoft/vscode-vsce/commit/a211177) on August 5, 2026. The current stable package is [`@vscode/vsce` 3.9.2](https://www.npmjs.com/package/@vscode/vsce?activeTab=versions); its CLI supports `--azure-credential`, not `--oidc`. This also explains why there is no usable trusted-publishing-policy UI in the Marketplace.
 
 A PAT is only a temporary path for somebody who already owns a suitable global PAT. Microsoft blocked creation and regeneration of global PATs on March 15, 2026 and will disable all remaining global PATs on December 1, 2026. See Microsoft's [global PAT retirement announcement](https://devblogs.microsoft.com/devops/retirement-of-global-personal-access-tokens-in-azure-devops/).
 
-## Recommended setup: Entra federation from GitHub Actions
+## New setup: Entra federation from GitHub Actions
 
 Microsoft's Marketplace guide requires a user-assigned managed identity with the Reader role, then adding that identity to the Marketplace publisher as a Contributor. It publishes with [`vsce publish --azure-credential`](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#secure-automated-publishing-to-visual-studio-marketplace). Microsoft separately documents that `azure/login` can federate a GitHub-hosted Actions runner to a user-assigned managed identity. Combining those two supported mechanisms avoids both a PAT and a client secret.
 
@@ -121,9 +123,9 @@ az rest \
 
 Copy the returned profile ID. In [Manage Publishers & Extensions](https://marketplace.visualstudio.com/manage/publishers/), open publisher `andrebrait`, add that ID as a member, and assign **Contributor**. These are the identity lookup and membership steps in Microsoft's [Marketplace publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#secure-automated-publishing-to-visual-studio-marketplace).
 
-## PAT fallback
+## Existing Marketplace token
 
-VSCE still accepts a PAT through `--pat` or the `VSCE_PAT` environment variable, and Microsoft's current [GitHub Actions example](https://code.visualstudio.com/api/working-with-extensions/continuous-integration#github-actions-automated-publishing) names the GitHub secret `VSCE_PAT`.
+VSCE accepts a PAT through `--pat` or the `VSCE_PAT` environment variable. Invariant instead passes the same kind of token to the publishing action as `VS_MARKETPLACE_TOKEN`, following the action's documented input name. Microsoft's current [GitHub Actions example](https://code.visualstudio.com/api/working-with-extensions/continuous-integration#github-actions-automated-publishing) names the direct-VSCE secret `VSCE_PAT`.
 
 The Marketplace-specific PAT requirements are:
 
