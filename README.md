@@ -6,6 +6,11 @@
 
 <p><strong>A semantic dark editor color scheme based on Monokai.</strong></p>
 
+<p>
+  <a href="https://plugins.jetbrains.com/plugin/33563-invariant"><img src="https://img.shields.io/badge/Install-JetBrains%20Marketplace-000000?logo=jetbrains" alt="Install from JetBrains Marketplace"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors"><img src="https://img.shields.io/badge/Install-Visual%20Studio%20Marketplace-007acc?logo=visualstudiocode" alt="Install from Visual Studio Marketplace"></a>
+</p>
+
 </div>
 
 Invariant grew from an Eclipse theme I started using in 2014 and is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
@@ -87,13 +92,9 @@ Other IntelliJ languages receive the semantic Language Defaults automatically. T
 
 ### JetBrains IDEs
 
-[![Install from JetBrains Marketplace](https://img.shields.io/badge/Install-JetBrains%20Marketplace-000000?logo=jetbrains)](https://plugins.jetbrains.com/plugin/33563-invariant)
-
 Install **Invariant** from the Plugins Marketplace, or import [`jetbrains/invariant.icls`](jetbrains/invariant.icls) manually from **Settings → Editor → Color Scheme → Import Scheme**.
 
 ### Visual Studio Code
-
-[![Install from Visual Studio Marketplace](https://img.shields.io/badge/Install-Visual%20Studio%20Marketplace-007acc?logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors)
 
 Install **Invariant** from the Extensions Marketplace and select it from **Preferences: Color Theme**. To test the source locally, open the [`vscode`](vscode) directory in Visual Studio Code and press `F5`.
 
