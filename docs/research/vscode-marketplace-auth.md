@@ -4,7 +4,7 @@ Scope: public, supported authentication paths available on August 15, 2026. Sour
 
 ## Conclusion
 
-Invariant uses an existing Marketplace token with [`HaaLeo/publish-vscode-extension@v2`](https://github.com/marketplace/actions/publish-vs-code-extension), passed through the `VS_MARKETPLACE_TOKEN` GitHub Actions secret. The action publishes the already-built VSIX through VSCE.
+Invariant uses Microsoft's official `@vscode/vsce` CLI with an existing Marketplace token passed through the documented `VSCE_PAT` GitHub Actions secret. VSCE publishes the already-built VSIX directly.
 
 For a new setup without an existing Marketplace token, use **Microsoft Entra workload identity federation** with a user-assigned managed identity, `azure/login`, and `vsce publish --azure-credential`.
 
@@ -125,7 +125,7 @@ Copy the returned profile ID. In [Manage Publishers & Extensions](https://market
 
 ## Existing Marketplace token
 
-VSCE accepts a PAT through `--pat` or the `VSCE_PAT` environment variable. Invariant instead passes the same kind of token to the publishing action as `VS_MARKETPLACE_TOKEN`, following the action's documented input name. Microsoft's current [GitHub Actions example](https://code.visualstudio.com/api/working-with-extensions/continuous-integration#github-actions-automated-publishing) names the direct-VSCE secret `VSCE_PAT`.
+VSCE accepts a PAT through `--pat` or the `VSCE_PAT` environment variable. Invariant follows Microsoft's current [GitHub Actions example](https://code.visualstudio.com/api/working-with-extensions/continuous-integration#github-actions-automated-publishing) and names the secret `VSCE_PAT`.
 
 The Marketplace-specific PAT requirements are:
 

@@ -37,11 +37,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - name: Publish to Visual Studio Marketplace
         if: ${{ !github.event.release.prerelease }}
-        uses: HaaLeo/publish-vscode-extension@v2
-        with:
-          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-          registryUrl: https://marketplace.visualstudio.com
-          extensionFile: vscode/invariant-colors-${{ env.PLUGIN_VERSION }}.vsix
+        run: npx --yes @vscode/vsce@3.9.2 publish --packagePath "vscode/invariant-colors-$PLUGIN_VERSION.vsix"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
   jetbrains:
     name: JetBrains Marketplace
