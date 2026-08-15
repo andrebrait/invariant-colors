@@ -140,7 +140,7 @@ gradle -p jetbrains buildPlugin verifyPlugin
 
 Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). The tag must match the version in [`vscode/package.json`](vscode/package.json), using `1.0.0` rather than `v1.0.0`. The workflow attaches both installable archives to the GitHub Release. Stable releases also publish the VS Code extension and JetBrains plugin; prereleases remain downloadable from GitHub only. Vim and Neovim package managers use the same Git tag directly.
 
-Before the first stable release, the JetBrains Marketplace plugin must be created manually and the repository must have an `INTELLIJ_PUBLISH_TOKEN` Actions secret. Visual Studio Marketplace authentication must also be configured before its publication step can run.
+Before the first stable release, create the JetBrains Marketplace plugin and add the `INTELLIJ_PUBLISH_TOKEN` Actions secret. Visual Studio Marketplace publishing uses the `vscode-marketplace` GitHub environment and Microsoft Entra workload identity federation; add its managed identity values as the `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` environment secrets. No Marketplace token or signing certificate is required.
 
 ## Provenance
 

@@ -50,6 +50,6 @@
   "scripts": {
     "test": "node ../scripts/check.mjs",
     "package": "npx --yes @vscode/vsce@3.9.2 package --githubBranch master",
-    "publish": "npx --yes @vscode/vsce@3.9.2 publish --githubBranch master --oidc"
+    "publish": "npx --yes @vscode/vsce@3.9.2 publish --githubBranch master --azure-credential"
   }
 }
