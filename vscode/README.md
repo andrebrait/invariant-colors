@@ -2,6 +2,14 @@
 
 Invariant is a semantic dark editor theme based on Monokai. Color identifies what a symbol is; formatting shows how it is being used.
 
+[![Install from Visual Studio Marketplace](https://img.shields.io/badge/Install-Visual%20Studio%20Marketplace-007acc?logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors)
+
+From the VS Code Command Palette, run:
+
+```text
+ext install andrebrait.invariant-colors
+```
+
 - Variables and fields use a warm neutral foreground.
 - Parameters are blue and types are cyan.
 - Concrete method calls are green; signature-only methods are pale blue when the language service exposes that distinction.
