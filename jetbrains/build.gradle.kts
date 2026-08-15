@@ -1,9 +1,11 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
 plugins {
     id("org.jetbrains.intellij.platform") version "2.18.1"
 }
 
 group = "com.github.andrebrait"
-version = providers.environmentVariable("PLUGIN_VERSION").orElse("0.1.0").get()
+version = providers.environmentVariable("PLUGIN_VERSION").orElse("1.0.0").get()
 
 repositories {
     mavenCentral()
@@ -28,6 +30,7 @@ intellijPlatform {
     pluginVerification {
         ides {
             current()
+            create(IntelliJPlatformType.IntellijIdeaUltimate, "2026.2")
         }
     }
 }

@@ -2,7 +2,7 @@
   "name": "invariant-colors",
   "displayName": "Invariant",
   "description": "A semantic dark editor theme based on Monokai, where color identifies what a symbol is and formatting shows how it is used.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "andrebrait",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {

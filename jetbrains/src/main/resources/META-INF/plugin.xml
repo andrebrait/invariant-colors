@@ -10,7 +10,12 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Initial JetBrains Marketplace release.</p>
+    <p>First stable release of Invariant for JetBrains IDEs.</p>
+    <ul>
+      <li>Semantic Language Defaults shared across supported languages.</li>
+      <li>Explicit coverage for Java, Kotlin, Python, CSS, and shell scripts.</li>
+      <li>Consistent colors for symbol identity, with formatting used for context.</li>
+    </ul>
   ]]></change-notes>
 
   <depends>com.intellij.modules.platform</depends>
