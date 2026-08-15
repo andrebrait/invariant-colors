@@ -11,6 +11,12 @@
   <a href="https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors"><img src="https://img.shields.io/badge/Install-Visual%20Studio%20Marketplace-007acc?logo=visualstudiocode" alt="Install from Visual Studio Marketplace"></a>
 </p>
 
+<p>
+  <a href="https://github.com/andrebrait/invariant-colors/stargazers"><img src="https://img.shields.io/github/stars/andrebrait/invariant-colors?style=flat&logo=github" alt="GitHub stars"></a>
+  <a href="https://github.com/andrebrait/invariant-colors/releases"><img src="https://img.shields.io/github/v/release/andrebrait/invariant-colors?include_prereleases&style=flat" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/andrebrait/invariant-colors?style=flat" alt="Eclipse Public License 2.0"></a>
+</p>
+
 </div>
 
 Invariant grew from an Eclipse theme I started using in 2014 and is primarily maintained for IntelliJ IDEA, with ports for Visual Studio Code and Vim/Neovim.
