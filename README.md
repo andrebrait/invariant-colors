@@ -138,7 +138,7 @@ gradle -p jetbrains buildPlugin verifyPlugin
 
 ## Releasing
 
-Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). The tag must match the version in [`vscode/package.json`](vscode/package.json), using `1.0.0` rather than `v1.0.0`. The workflow attaches both installable archives to the GitHub Release, publishes the VS Code extension through trusted publishing, and publishes the signed JetBrains plugin. Vim and Neovim package managers use the same Git tag directly.
+Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). The tag must match the version in [`vscode/package.json`](vscode/package.json), using `1.0.0` rather than `v1.0.0`. The workflow attaches both installable archives to the GitHub Release. Stable releases also publish the VS Code extension through trusted publishing and the signed JetBrains plugin; prereleases remain downloadable from GitHub only. Vim and Neovim package managers use the same Git tag directly.
 
 Before the first release, the JetBrains Marketplace plugin must be created manually and the repository must have `PUBLISH_TOKEN`, `PRIVATE_KEY`, `PRIVATE_KEY_PASSWORD`, and `CERTIFICATE_CHAIN` Actions secrets. The Visual Studio Marketplace publisher must trust this repository and `.github/workflows/release.yml` through its GitHub Actions publishing policy.
 
