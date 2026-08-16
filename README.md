@@ -40,7 +40,6 @@ The same kind of symbol should keep the same foreground wherever it appears. A c
 | Keywords and reserved names | ![#ff007f](docs/images/swatches/ff007f.svg) Bold pink `#ff007f` | `class`, `return`, `this`, `self`, `null` |
 | Strings | ![#ece47e](docs/images/swatches/ece47e.svg) Pale yellow `#ece47e` | String and character literals |
 | Numbers | ![#c48cff](docs/images/swatches/c48cff.svg) Purple `#c48cff` | Numeric literals |
-| Python modules | ![#fd971f](docs/images/swatches/fd971f.svg) Orange `#fd971f`, italic | Imported modules and packages, and module qualifiers |
 | Annotations and metadata | ![#ffffff](docs/images/swatches/ffffff.svg) White `#ffffff` | Annotations and attribute names |
 | Comments | ![#ffffff](docs/images/swatches/ffffff.svg) White `#ffffff` | Line, block, and documentation comments |
 
@@ -81,9 +80,7 @@ Kotlin follows the same language-default meanings for types, parameters, variabl
 
 Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
 
-Imported modules and packages use the Monokai orange `#fd971f`, italic, so an `os.path` qualifier no longer reads as a type. Visual Studio Code applies this through the Python semantic token for modules, and Neovim through the Tree-sitter `@module` capture and the LSP namespace token. IntelliJ's Python plugin exposes no color key for module references, so the scheme cannot carry the distinction there; those names keep the neutral identifier foreground.
-
-This identity is deliberately scoped to Python rather than applied to every namespace-like token. A Python module is a runtime object backed by a file, which is why it earns a foreground of its own. A Java package is a compile-time prefix, and a Java module is a `module-info.java` declaration whose name does not follow the package hierarchy; neither is the same concept, so both keep their existing treatment.
+Imported modules and packages read as ordinary identifiers in the warm neutral `#cfbfad`. IntelliJ's Python plugin exposes no color key for module references, so the name in `import os` or in an `os.path` qualifier simply keeps the default foreground. The other ports are pinned to match: without an explicit rule, Visual Studio Code would color modules with the cyan `namespace` token and Neovim would inherit a type-like default from the `@module` capture, both of which would make a module read as a type in one editor but not another.
 
 ## Language support
 

@@ -223,14 +223,8 @@
   ],
   "semanticTokenColors": {
     "namespace": "#52e3f6",
-    "namespace:python": {
-      "foreground": "#fd971f",
-      "italic": true
-    },
-    "module:python": {
-      "foreground": "#fd971f",
-      "italic": true
-    },
+    "namespace:python": "#cfbfad",
+    "module:python": "#cfbfad",
     "type": "#52e3f6",
     "class": "#52e3f6",
     "interface": "#52e3f6",

@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added an orange italic treatment for Python modules and packages, covering both the `namespace` and `module` semantic token names emitted by Python language servers.
+- Python modules and packages now use the identifier foreground instead of the cyan namespace color, matching how IntelliJ renders them. Both the `namespace` and `module` semantic token names emitted by Python language servers are covered.
 
 ## 1.0.0
 
