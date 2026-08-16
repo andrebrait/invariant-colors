@@ -56,6 +56,7 @@ highlight DiagnosticHint  guifg=#659c6b guibg=NONE ctermfg=71  ctermbg=NONE
 highlight SM2Parameter guifg=#79abff guibg=NONE ctermfg=111 ctermbg=NONE
 highlight SM2Signature guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2Static    guifg=NONE    guibg=NONE gui=italic ctermfg=NONE ctermbg=NONE cterm=italic
+highlight SM2Module    guifg=#fd971f guibg=NONE gui=italic ctermfg=208 ctermbg=NONE cterm=italic
 highlight! link pythonClassVar Statement
 
 if has('nvim')
@@ -77,6 +78,9 @@ if has('nvim')
   highlight! link @lsp.type.method Function
   highlight! link @lsp.mod.abstract SM2Signature
   highlight! link @lsp.mod.static SM2Static
+  highlight! link @module.python SM2Module
+  highlight! link @module.builtin.python SM2Module
+  highlight! link @lsp.type.namespace.python SM2Module
 endif
 
 let g:terminal_ansi_colors = [

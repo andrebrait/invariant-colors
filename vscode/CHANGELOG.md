@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added an orange italic treatment for Python modules and packages, covering both the `namespace` and `module` semantic token names emitted by Python language servers.
+
 ## 1.0.0
 
 - First stable release of Invariant for Visual Studio Code.
