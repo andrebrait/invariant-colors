@@ -75,28 +75,47 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   assert.match(scheme, /name="DEFAULT_FUNCTION_CALL"[\s\S]*?value="a7ec21"/);
   assert.match(scheme, /name="DEFAULT_FUNCTION_DECLARATION"[\s\S]*?value="a7ec21"/);
   assert.match(scheme, /name="DEFAULT_IDENTIFIER"[\s\S]*?value="cfbfad"/);
-  assert.match(scheme, /name="DEFAULT_INSTANCE_FIELD" baseAttributes="DEFAULT_IDENTIFIER"/);
   assert.match(scheme, /name="DEFAULT_PARAMETER"[\s\S]*?value="79abff"/);
+  // baseAttributes is descriptive, not a directive: the fallback is fixed in IDE source by
+  // createTextAttributesKey(name, fallback), and the IDE drops or rewrites whatever a scheme
+  // claims. So an entry may only name the fallback the IDE itself declares, and any key whose
+  // colour differs from that fallback has to spell the colour out.
   for (const [key, base] of [
-    ['CSS.IDENT', 'DEFAULT_TAG'],
-    ['DEFAULT_CLASS_REFERENCE', 'DEFAULT_CLASS_NAME'],
     ['DEFAULT_GLOBAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
+    ['DEFAULT_INSTANCE_FIELD', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_INSTANCE_METHOD', 'DEFAULT_FUNCTION_DECLARATION'],
     ['DEFAULT_LABEL', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_LOCAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
-    ['DEFAULT_PREDEFINED_SYMBOL', 'DEFAULT_KEYWORD'],
-    ['KOTLIN_COLON', 'DEFAULT_OPERATION_SIGN'],
-    ['KOTLIN_DYNAMIC_FUNCTION_CALL', 'DEFAULT_FUNCTION_CALL'],
-    ['KOTLIN_DYNAMIC_PROPERTY_CALL', 'DEFAULT_INSTANCE_FIELD'],
-    ['KOTLIN_EXCLEXCL', 'DEFAULT_OPERATION_SIGN'],
-    ['KOTLIN_QUEST', 'DEFAULT_OPERATION_SIGN'],
-    ['KOTLIN_VARIABLE_AS_FUNCTION', 'DEFAULT_FUNCTION_CALL'],
-    ['KOTLIN_VARIABLE_AS_FUNCTION_LIKE', 'DEFAULT_FUNCTION_CALL'],
-    ['PY.SELF_PARAMETER', 'DEFAULT_KEYWORD'],
-    ['PY.ANNOTATION', 'DEFAULT_CLASS_REFERENCE'],
-    ['PY.TYPE_PARAMETER', 'TYPE_PARAMETER_NAME_ATTRIBUTES']
+    ['PY.ANNOTATION', 'DEFAULT_IDENTIFIER'],
+    ['STATIC_METHOD_ATTRIBUTES', 'DEFAULT_STATIC_METHOD'],
+    ['ANNOTATION_ATTRIBUTE_NAME_ATTRIBUTES', 'DEFAULT_METADATA']
   ]) {
     assert.match(scheme, new RegExp(`name="${key}" baseAttributes="${base}"`));
+  }
+  // Keys whose declared fallback carries the wrong colour, so inheriting would render wrong:
+  // DEFAULT_CLASS_REFERENCE and DEFAULT_PREDEFINED_SYMBOL fall back to DEFAULT_IDENTIFIER,
+  // PY.SELF_PARAMETER and PY.TYPE_PARAMETER to DEFAULT_PARAMETER, and the Kotlin operator and
+  // dynamic-call keys declare no fallback at all.
+  for (const [key, value, fontType] of [
+    ['DEFAULT_CLASS_REFERENCE', '52e3f6', null],
+    ['DEFAULT_PREDEFINED_SYMBOL', 'ff007f', '1'],
+    ['PY.SELF_PARAMETER', 'ff007f', '1'],
+    ['PY.TYPE_PARAMETER', 'fd971f', '1'],
+    ['KOTLIN_COLON', 'ff007f', null],
+    ['KOTLIN_QUEST', 'ff007f', null],
+    ['KOTLIN_EXCLEXCL', 'ff007f', null],
+    ['KOTLIN_DYNAMIC_FUNCTION_CALL', 'a7ec21', null],
+    ['KOTLIN_VARIABLE_AS_FUNCTION', 'a7ec21', null],
+    ['KOTLIN_VARIABLE_AS_FUNCTION_LIKE', 'a7ec21', null],
+    ['KOTLIN_DYNAMIC_PROPERTY_CALL', 'cfbfad', null],
+    ['PY.STRING.B', 'ece47e', null]
+  ]) {
+    const font = fontType ? `\\s*<option name="FONT_TYPE" value="${fontType}"\\s*/>` : '';
+    assert.match(
+      scheme,
+      new RegExp(`name="${key}">\\s*<value>\\s*<option name="FOREGROUND" value="${value}"\\s*/>${font}\\s*</value>`)
+    );
+    assert.doesNotMatch(scheme, new RegExp(`name="${key}" baseAttributes=`));
   }
   assert.match(scheme, /name="KOTLIN_ARROW">\s*<value>\s*<option name="FOREGROUND" value="cfbfad"\s*\/>\s*<\/value>\s*<\/option>/);
   assert.match(scheme, /name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">\s*<value\s*\/>\s*<\/option>/);

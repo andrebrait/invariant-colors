@@ -342,7 +342,12 @@
         <option name="FOREGROUND" value="52e3f6" />
       </value>
     </option>
-    <option name="DEFAULT_CLASS_REFERENCE" baseAttributes="DEFAULT_CLASS_NAME" />
+    <!-- Falls back to DEFAULT_IDENTIFIER in platform source, so class references need the class colour spelled out. -->
+    <option name="DEFAULT_CLASS_REFERENCE">
+      <value>
+        <option name="FOREGROUND" value="52e3f6" />
+      </value>
+    </option>
     <option name="DEFAULT_COMMA">
       <value>
         <option name="FOREGROUND" value="ff007f" />
@@ -451,7 +456,13 @@
         <option name="FOREGROUND" value="f9faf4" />
       </value>
     </option>
-    <option name="DEFAULT_PREDEFINED_SYMBOL" baseAttributes="DEFAULT_KEYWORD" />
+    <!-- Falls back to DEFAULT_IDENTIFIER, not DEFAULT_KEYWORD. -->
+    <option name="DEFAULT_PREDEFINED_SYMBOL">
+      <value>
+        <option name="FOREGROUND" value="ff007f" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
     <option name="DEFAULT_REASSIGNED_LOCAL_VARIABLE">
       <value>
         <option name="EFFECT_COLOR" value="b2ada9" />
@@ -646,10 +657,27 @@
         <option name="BACKGROUND" value="3c3f41" />
       </value>
     </option>
-    <option name="KOTLIN_COLON" baseAttributes="DEFAULT_OPERATION_SIGN" />
-    <option name="KOTLIN_DYNAMIC_FUNCTION_CALL" baseAttributes="DEFAULT_FUNCTION_CALL" />
-    <option name="KOTLIN_DYNAMIC_PROPERTY_CALL" baseAttributes="DEFAULT_INSTANCE_FIELD" />
-    <option name="KOTLIN_EXCLEXCL" baseAttributes="DEFAULT_OPERATION_SIGN" />
+    <!-- KotlinHighlightingColors declares these with no fallback at all, so each operator needs its own value. -->
+    <option name="KOTLIN_COLON">
+      <value>
+        <option name="FOREGROUND" value="ff007f" />
+      </value>
+    </option>
+    <option name="KOTLIN_DYNAMIC_FUNCTION_CALL">
+      <value>
+        <option name="FOREGROUND" value="a7ec21" />
+      </value>
+    </option>
+    <option name="KOTLIN_DYNAMIC_PROPERTY_CALL">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+      </value>
+    </option>
+    <option name="KOTLIN_EXCLEXCL">
+      <value>
+        <option name="FOREGROUND" value="ff007f" />
+      </value>
+    </option>
     <!-- IntelliJ 2026.2 drops a custom baseAttributes mapping here when saving the scheme. -->
     <option name="KOTLIN_ARROW">
       <value>
@@ -665,15 +693,27 @@
         <option name="EFFECT_TYPE" value="1" />
       </value>
     </option>
-    <option name="KOTLIN_QUEST" baseAttributes="DEFAULT_OPERATION_SIGN" />
+    <option name="KOTLIN_QUEST">
+      <value>
+        <option name="FOREGROUND" value="ff007f" />
+      </value>
+    </option>
     <option name="KOTLIN_SMART_CAST_RECEIVER">
       <value />
     </option>
     <option name="KOTLIN_SMART_CONSTANT">
       <value />
     </option>
-    <option name="KOTLIN_VARIABLE_AS_FUNCTION" baseAttributes="DEFAULT_FUNCTION_CALL" />
-    <option name="KOTLIN_VARIABLE_AS_FUNCTION_LIKE" baseAttributes="DEFAULT_FUNCTION_CALL" />
+    <option name="KOTLIN_VARIABLE_AS_FUNCTION">
+      <value>
+        <option name="FOREGROUND" value="a7ec21" />
+      </value>
+    </option>
+    <option name="KOTLIN_VARIABLE_AS_FUNCTION_LIKE">
+      <value>
+        <option name="FOREGROUND" value="a7ec21" />
+      </value>
+    </option>
     <option name="LINE_FULL_COVERAGE">
       <value>
         <option name="FOREGROUND" value="485848" />
@@ -821,7 +861,7 @@
         <option name="FOREGROUND" value="bed6ff" />
       </value>
     </option>
-    <option name="PY.ANNOTATION" baseAttributes="DEFAULT_CLASS_REFERENCE" />
+    <option name="PY.ANNOTATION" baseAttributes="DEFAULT_IDENTIFIER" />
     <option name="PY.PREDEFINED_DEFINITION">
       <value>
         <option name="FOREGROUND" value="a7ec21" />
@@ -833,8 +873,27 @@
         <option name="FONT_TYPE" value="2" />
       </value>
     </option>
-    <option name="PY.SELF_PARAMETER" baseAttributes="DEFAULT_KEYWORD" />
-    <option name="PY.TYPE_PARAMETER" baseAttributes="TYPE_PARAMETER_NAME_ATTRIBUTES" />
+    <!-- PyHighlighter declares the fallback as DEFAULT_PARAMETER; self and cls need the keyword colour spelled out. -->
+    <option name="PY.SELF_PARAMETER">
+      <value>
+        <option name="FOREGROUND" value="ff007f" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <!-- A byte string is a string. PY.STRING.B declares DEFAULT_STRING as its fallback, but an
+         inherited scheme in the chain colours it separately, so pin it to the string foreground. -->
+    <option name="PY.STRING.B">
+      <value>
+        <option name="FOREGROUND" value="ece47e" />
+      </value>
+    </option>
+    <!-- PyHighlighter declares the fallback as DEFAULT_PARAMETER, not TYPE_PARAMETER_NAME_ATTRIBUTES. -->
+    <option name="PY.TYPE_PARAMETER">
+      <value>
+        <option name="FOREGROUND" value="fd971f" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
     <option name="REGEXP_MATCHED_GROUPS">
       <value>
         <option name="BACKGROUND" value="6b6b6b" />

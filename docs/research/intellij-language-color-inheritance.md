@@ -23,9 +23,39 @@ The bundled language plugins then contribute Darcula-specific fragments which Is
 
 Those fragments explicitly override concepts including JavaScript local/global variables and functions, Kotlin package functions and type parameters, Groovy static properties, SQL outer-query columns, and shell external commands. Consequently, setting Language Defaults is necessary but not sufficient for cross-language consistency.
 
+## A scheme cannot redirect inheritance
+
+`baseAttributes` in an `.icls` file is descriptive, not a directive. The fallback of every
+key is fixed in IDE source by `TextAttributesKey.createTextAttributesKey(name, fallback)`,
+and a scheme can only record what that fallback already is. Write a different one and the
+IDE ignores it, then rewrites the entry to the declared fallback or drops it as redundant
+the next time it saves the scheme. Only an explicit `<value>` block changes what renders.
+
+This invalidates the obvious strategy of pointing a key at whichever semantic base we want.
+Where a key's declared fallback already carries the intended colour, inheriting is correct
+and the entry is worth keeping as documentation. Where it does not, the colour has to be
+spelled out, and `check.mjs` enforces that a key is expressed one way or the other.
+
+Fallbacks that surprised us, read from JetBrains source:
+
+| Key | Declared fallback | Consequence |
+|---|---|---|
+| `DEFAULT_CLASS_REFERENCE` | `DEFAULT_IDENTIFIER`, not `DEFAULT_CLASS_NAME` | class references render neutral unless pinned |
+| `DEFAULT_PREDEFINED_SYMBOL` | `DEFAULT_IDENTIFIER`, not `DEFAULT_KEYWORD` | reserved names render neutral unless pinned |
+| `PY.SELF_PARAMETER` | `DEFAULT_PARAMETER` | `self`/`cls` render parameter blue unless pinned |
+| `PY.TYPE_PARAMETER` | `DEFAULT_PARAMETER`, not `TYPE_PARAMETER_NAME_ATTRIBUTES` | Python type parameters do not follow the Java key |
+| `PY.ANNOTATION` | `DEFAULT_IDENTIFIER` | type hints are neutral, and cannot be made to follow class references |
+| `KOTLIN_ARROW` | `PARENTHESIS` | pinned explicitly for this reason |
+| `KOTLIN_COLON`, `KOTLIN_QUEST`, `KOTLIN_EXCLEXCL`, `KOTLIN_DYNAMIC_FUNCTION_CALL`, `KOTLIN_DYNAMIC_PROPERTY_CALL`, `KOTLIN_VARIABLE_AS_FUNCTION`, `KOTLIN_VARIABLE_AS_FUNCTION_LIKE` | none declared | render unstyled unless pinned |
+
+`CSS.IDENT` claims `DEFAULT_TAG`. CSS support is not part of IntelliJ Community, so the
+declared fallback cannot be verified from source and the entry is left unasserted.
+
 ## Canonical generic mapping
 
-Java remains the reference vocabulary. The generic layer should carry every relationship it can express:
+Java remains the reference vocabulary. The table below is the intended semantic result, not
+a set of inheritance instructions: each key reaches its colour either through a declared
+fallback that already carries it, or through an explicit value.
 
 | Semantic identity | Language Default | Invariant result |
 |---|---|---|
@@ -55,13 +85,13 @@ Decision: `DEFAULT_GLOBAL_VARIABLE` uses ordinary-variable styling: warm neutral
 
 Decision: `DEFAULT_CONSTANT` retains its existing warm-neutral `#cfbfad`, italic styling. Java has no highlighting key which inherits this generic concept.
 
-Kotlin's combined function-literal braces-and-arrow key is intentionally transparent. `KOTLIN_ARROW` explicitly uses the identifier foreground `#cfbfad`, matching Java's plain lambda arrow, while the braces retain their normal `DEFAULT_BRACES` styling. This is deliberately explicit because IntelliJ IDEA 2026.2 discards a custom `KOTLIN_ARROW` base-attribute mapping when it saves an imported scheme. IntelliJ IDEA 2026.2 emits no dedicated editor-color key for Java's `JavaTokenType.ARROW`.
+Kotlin's combined function-literal braces-and-arrow key is intentionally transparent. `KOTLIN_ARROW` explicitly uses the identifier foreground `#cfbfad`, matching Java's plain lambda arrow, while the braces retain their normal `DEFAULT_BRACES` styling. This is deliberately explicit because `KOTLIN_ARROW` declares its fallback as `PARENTHESIS`, so an inherited mapping never reaches it. IntelliJ IDEA 2026.2 emits no dedicated editor-color key for Java's `JavaTokenType.ARROW`.
 
 ## Existing language-specific entries
 
-Exact duplicates now inherit their semantic base: CSS element selectors, Kotlin operator punctuation, dynamic calls and properties, Kotlin callable variables, and Python `self`. Empty Markdown list entries and Java's redundant annotation-name alias were removed because omission produces the same effective style. Markdown emphasis and headings were later given explicit styling: they carry structure through weight and keep the identifier foreground, so prose never spends a color the code palette needs. The remaining language-specific values are intentional differences or transparent overlays: Bash command categories, CSS selector/function/property categories, Kotlin named-argument and smart-cast contexts, Python built-ins and predefined names, and regular-expression match backgrounds.
+Keys whose declared fallback already carries the intended colour are left to inherit it: generic locals, globals, instance fields and labels, Java's static-method and annotation-attribute aliases, and Python type annotations. Kotlin operator punctuation, dynamic calls and callable variables, Python `self` and type parameters, and generic class references and predefined symbols are pinned to explicit values instead, because their declared fallbacks carry a different colour or none at all. Empty Markdown list entries and Java's redundant annotation-name alias were removed because omission produces the same effective style. Markdown emphasis and headings were later given explicit styling: they carry structure through weight and keep the identifier foreground, so prose never spends a color the code palette needs. The remaining language-specific values are intentional differences or transparent overlays: Bash command categories, CSS selector/function/property categories, Kotlin named-argument and smart-cast contexts, Python built-ins and predefined names, and regular-expression match backgrounds.
 
-For Python, type annotations inherit `DEFAULT_CLASS_REFERENCE`, and Python 3.12 type parameters inherit Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
+For Python, type annotations fall back to `DEFAULT_IDENTIFIER` and are left to do so, which is why a type hint reads as neutral text. Python 3.12 type parameters fall back to `DEFAULT_PARAMETER` rather than Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`, so they are pinned to the type-parameter orange explicitly. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
 
 Decision: `PY.BUILTIN_NAME` retains its explicit pale-blue `#bed6ff` foreground. This intentionally overrides the plugin's `DEFAULT_PREDEFINED_SYMBOL` fallback because Python groups built-in functions and types under one color key.
 
@@ -108,7 +138,7 @@ request being accepted and shipped as `PyLocalVariableHighlightingAnnotator`.
 
 ## Implementation order
 
-1. Complete the generic Language Defaults aliases, especially class references, instance methods, locals/globals, and predefined symbols.
+1. Check a key's declared fallback in IDE source before relying on it; pin an explicit value wherever that fallback carries the wrong colour.
 2. Audit the bundled Darcula fragment for one language at a time and shadow only entries which interrupt the canonical mapping.
 3. Start with Kotlin because its fallback graph already refers heavily to Java and Language Defaults, then JavaScript/TypeScript, Groovy, SQL, Shell, and markup/configuration languages.
 4. Treat plugin-only concepts as individual user decisions; do not invent new foreground identities merely to cover every key.
