@@ -59,7 +59,7 @@ Kotlin's combined function-literal braces-and-arrow key is intentionally transpa
 
 ## Existing language-specific entries
 
-Exact duplicates now inherit their semantic base: CSS element selectors, Kotlin operator punctuation, dynamic calls and properties, Kotlin callable variables, and Python `self`. Empty Markdown emphasis/list entries and Java's redundant annotation-name alias were removed because omission produces the same effective style. The remaining language-specific values are intentional differences or transparent overlays: Bash command categories, CSS selector/function/property categories, Kotlin named-argument and smart-cast contexts, Python built-ins and predefined names, and regular-expression match backgrounds.
+Exact duplicates now inherit their semantic base: CSS element selectors, Kotlin operator punctuation, dynamic calls and properties, Kotlin callable variables, and Python `self`. Empty Markdown list entries and Java's redundant annotation-name alias were removed because omission produces the same effective style. Markdown emphasis and headings were later given explicit styling: they carry structure through weight and keep the identifier foreground, so prose never spends a color the code palette needs. The remaining language-specific values are intentional differences or transparent overlays: Bash command categories, CSS selector/function/property categories, Kotlin named-argument and smart-cast contexts, Python built-ins and predefined names, and regular-expression match backgrounds.
 
 For Python, type annotations inherit `DEFAULT_CLASS_REFERENCE`, and Python 3.12 type parameters inherit Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
 
@@ -74,6 +74,37 @@ Decision: the Visual Studio Code and Neovim ports pin Python modules to the iden
 Decision: `PY.PREDEFINED_USAGE` is italic-only. Python's separate method-call highlighting supplies green for calls such as `obj.__iter__()`, while field usages such as `obj.__doc__` retain identifier-neutral foreground and gain italics.
 
 Captures, smart casts, backing fields, dynamic calls, package-level declarations, extension members, named arguments, SQL correlation, and similar context are also plugin-specific. They should keep the base foreground identity and add only a sparse effect or font modifier where the plugin permits it.
+
+## Ceiling: Python type hints cannot be coloured compositionally
+
+No scheme can give a Python annotation internal structure. The limit is upstream, in
+`PyFunctionHighlightingAnnotator.MyVisitor.highlightAnnotationValue`
+(`python/python-psi-impl/src/com/jetbrains/python/validation/`, IntelliJ IDEA 2026.2):
+`visitPyAnnotation` walks every leaf of the annotation expression, keeps anything that is
+not a comment, whitespace or empty range, merges adjacent leaves into contiguous runs, and
+paints each run `PY_ANNOTATION`. Brackets, dots and commas are leaves like any other, so
+subscript punctuation takes the annotation foreground rather than the punctuation colour.
+The colour-settings preview states the same thing outright: `List[<builtin>str</builtin>]`
+sits inside one annotation span, and a type parameter reads as `<typeParam>T</typeParam>`
+where it is declared but `<annotation>T</annotation>` where it is used as a hint.
+
+Two consequences we cannot style around. Subscript brackets cannot differ from the
+annotation foreground. A type parameter used as a hint cannot keep the type-parameter
+identity it has at its declaration site.
+
+Built-ins are the one exception, and they show the escape hatch: the annotation runs are
+added with `LOW_PRIORITY_HIGHLIGHTING`, so any normal-priority annotator overrides them.
+That is how `PY_BUILTIN_NAME` survives inside an annotation. An upstream fix therefore
+stays small and local to that one file — exclude punctuation leaves from
+`isHighlightableAnnotationLeaf`, and paint resolved type-parameter references
+`PY_TYPE_PARAMETER` at normal priority.
+
+Decision: do not ship a Python annotator to work around this. That would turn a colour
+scheme into a code plugin, with platform API churn and plugin verification on every IDE
+release, in exchange for one highlighting nuance. Pursue it upstream instead —
+[PY-65557](https://youtrack.jetbrains.com/issue/PY-65557) is open, Minor, and has no votes,
+while [PY-32302](https://youtrack.jetbrains.com/issue/PY-32302) shows the same class of
+request being accepted and shipped as `PyLocalVariableHighlightingAnnotator`.
 
 ## Implementation order
 
