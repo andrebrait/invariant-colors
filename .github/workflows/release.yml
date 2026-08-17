@@ -21,12 +21,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.release.tag_name }}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 'lts/*'
       - name: Check release version
         run: test "$(node -p "require('./vscode/package.json').version")" = "$PLUGIN_VERSION"
       - run: npm test --prefix vscode
@@ -54,16 +54,16 @@ jobs:
     env:
       PUBLISH_TOKEN: ${{ secrets.INTELLIJ_PUBLISH_TOKEN }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.release.tag_name }}
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 25
       - uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: 9.6.1
+          gradle-version: 9.7.0
       - run: gradle -p jetbrains buildPlugin verifyPlugin
       - name: Attach JetBrains plugin
         run: gh release upload "$GITHUB_REF_NAME" "jetbrains/build/distributions/invariant-$PLUGIN_VERSION.zip" --clobber
