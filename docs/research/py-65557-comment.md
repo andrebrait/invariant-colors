@@ -5,8 +5,8 @@ Not posted. Review and post manually at
 
 ---
 
-Two concrete cases where the current annotation highlighting loses information, both
-reproducible in 2026.2 with any colour scheme.
+Two concrete cases where Python highlighting loses information, both reproducible in
+2026.2 with any colour scheme, on a module with an interpreter configured.
 
 **1. Subscript punctuation takes the annotation colour.**
 
@@ -53,12 +53,12 @@ today, which is easy to confirm in the editor: in `x: dict[str, int]` the `dict`
 `int` keep the built-in colour while the brackets and comma do not. The extension mechanism
 is in place; these two cases just are not using it.
 
-That suggests both fixes are local to that one method:
+That suggests two small, independent changes:
 
-- Extend `isHighlightableAnnotationLeaf` to skip punctuation leaves, so brackets, commas
-  and dots fall back to their normal colour.
-- Apply `PY_TYPE_PARAMETER` to a `PyTypeParameter`'s name identifier, and to references
-  that resolve to one, at normal priority so they override the low-priority annotation wash.
+- In `highlightAnnotationValue`, extend `isHighlightableAnnotationLeaf` to skip punctuation
+  leaves, so brackets, commas and dots fall back to their normal colour.
+- Apply `PY_TYPE_PARAMETER` to a `PyTypeParameter`'s name identifier, and to references that
+  resolve to one, at normal priority so they override the low-priority annotation wash.
 
 Both are additive and neither needs a new colour key: `PY_TYPE_PARAMETER` already exists and
 is already exposed in the colour-settings page, it simply is not used.
