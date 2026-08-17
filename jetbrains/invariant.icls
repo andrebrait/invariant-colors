@@ -650,7 +650,12 @@
     <option name="KOTLIN_DYNAMIC_FUNCTION_CALL" baseAttributes="DEFAULT_FUNCTION_CALL" />
     <option name="KOTLIN_DYNAMIC_PROPERTY_CALL" baseAttributes="DEFAULT_INSTANCE_FIELD" />
     <option name="KOTLIN_EXCLEXCL" baseAttributes="DEFAULT_OPERATION_SIGN" />
-    <option name="KOTLIN_ARROW" baseAttributes="DEFAULT_IDENTIFIER" />
+    <!-- IntelliJ 2026.2 drops a custom baseAttributes mapping here when saving the scheme. -->
+    <option name="KOTLIN_ARROW">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+      </value>
+    </option>
     <option name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">
       <value />
     </option>

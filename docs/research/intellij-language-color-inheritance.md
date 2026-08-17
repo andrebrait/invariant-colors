@@ -55,7 +55,7 @@ Decision: `DEFAULT_GLOBAL_VARIABLE` uses ordinary-variable styling: warm neutral
 
 Decision: `DEFAULT_CONSTANT` retains its existing warm-neutral `#cfbfad`, italic styling. Java has no highlighting key which inherits this generic concept.
 
-Kotlin's combined function-literal braces-and-arrow key is intentionally transparent. `KOTLIN_ARROW` inherits `DEFAULT_IDENTIFIER`, matching Java's plain lambda arrow, while the braces retain their normal `DEFAULT_BRACES` styling. IntelliJ IDEA 2026.2 emits no dedicated editor-color key for Java's `JavaTokenType.ARROW`.
+Kotlin's combined function-literal braces-and-arrow key is intentionally transparent. `KOTLIN_ARROW` explicitly uses the identifier foreground `#cfbfad`, matching Java's plain lambda arrow, while the braces retain their normal `DEFAULT_BRACES` styling. This is deliberately explicit because IntelliJ IDEA 2026.2 discards a custom `KOTLIN_ARROW` base-attribute mapping when it saves an imported scheme. IntelliJ IDEA 2026.2 emits no dedicated editor-color key for Java's `JavaTokenType.ARROW`.
 
 ## Existing language-specific entries
 

@@ -65,7 +65,6 @@ for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
     ['DEFAULT_LOCAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_PREDEFINED_SYMBOL', 'DEFAULT_KEYWORD'],
     ['KOTLIN_COLON', 'DEFAULT_OPERATION_SIGN'],
-    ['KOTLIN_ARROW', 'DEFAULT_IDENTIFIER'],
     ['KOTLIN_DYNAMIC_FUNCTION_CALL', 'DEFAULT_FUNCTION_CALL'],
     ['KOTLIN_DYNAMIC_PROPERTY_CALL', 'DEFAULT_INSTANCE_FIELD'],
     ['KOTLIN_EXCLEXCL', 'DEFAULT_OPERATION_SIGN'],
@@ -78,6 +77,7 @@ for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
   ]) {
     assert.match(scheme, new RegExp(`name="${key}" baseAttributes="${base}"`));
   }
+  assert.match(scheme, /name="KOTLIN_ARROW">\s*<value>\s*<option name="FOREGROUND" value="cfbfad"\s*\/>\s*<\/value>\s*<\/option>/);
   assert.match(scheme, /name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">\s*<value\s*\/>\s*<\/option>/);
   const predefinedUsage = scheme.match(/name="PY\.PREDEFINED_USAGE">[\s\S]*?<value>([\s\S]*?)<\/value>/)[1];
   assert.match(predefinedUsage, /name="FONT_TYPE" value="2"/);
