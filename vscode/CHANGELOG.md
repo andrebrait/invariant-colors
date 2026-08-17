@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Python modules and packages now use the identifier foreground instead of the cyan namespace color, matching how IntelliJ renders them. Both the `namespace` and `module` semantic token names emitted by Python language servers are covered.
+
 ## 1.0.0
 
 - First stable release of Invariant for Visual Studio Code.

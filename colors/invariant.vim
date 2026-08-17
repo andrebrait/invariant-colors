@@ -77,6 +77,10 @@ if has('nvim')
   highlight! link @lsp.type.method Function
   highlight! link @lsp.mod.abstract SM2Signature
   highlight! link @lsp.mod.static SM2Static
+  " Python modules are ordinary identifiers, matching IntelliJ.
+  highlight! link @module.python Identifier
+  highlight! link @module.builtin.python Identifier
+  highlight! link @lsp.type.namespace.python Identifier
 endif
 
 let g:terminal_ansi_colors = [

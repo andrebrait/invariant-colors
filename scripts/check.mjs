@@ -37,6 +37,10 @@ assert.deepEqual(theme.tokenColors.find(rule => rule.name === 'Python self and c
 for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
   assert.equal(theme.semanticTokenColors[type], '#52e3f6');
 }
+assert.equal(theme.semanticTokenColors.namespace, '#52e3f6');
+for (const pythonModule of ['namespace:python', 'module:python']) {
+  assert.equal(theme.semanticTokenColors[pythonModule], theme.semanticTokenColors.variable);
+}
 
 {
   const scheme = intellij;
@@ -114,4 +118,7 @@ assert.match(vim, /highlight Normal\s+guifg=#cfbfad guibg=#191a1c/);
 assert.match(vim, /highlight Pmenu\s+guifg=#cfbfad guibg=#27282b/);
 assert.match(vim, /highlight! link pythonClassVar Statement/);
 assert.match(vim, /@lsp\.mod\.static SM2Static/);
+for (const pythonModule of ['@module\\.python', '@module\\.builtin\\.python', '@lsp\\.type\\.namespace\\.python']) {
+  assert.match(vim, new RegExp(`link ${pythonModule} Identifier`));
+}
 console.log('Theme definitions are valid and preserve the semantic color contract.');

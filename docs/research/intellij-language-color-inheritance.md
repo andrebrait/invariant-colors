@@ -67,6 +67,10 @@ Decision: `PY.BUILTIN_NAME` retains its explicit pale-blue `#bed6ff` foreground.
 
 Decision: `PY.PREDEFINED_DEFINITION` remains green `#a7ec21`, italic, distinguishing Python special-name definitions such as `__init__` from ordinary function declarations.
 
+Finding: there is no module or package color key for Python, and no generic Language Default for the concept. `PyHighlighter` in `python/python-syntax-core` registers keywords, strings, numbers, punctuation, comments, decorators, class and function definitions, calls, parameters, built-in and predefined names, annotations, local variables, and type parameters; `PythonColorsPage` in `python/python-syntax` exposes exactly that set. Module references in `import os` or in an `os.path` qualifier therefore fall through to the identifier foreground. Inside a type annotation they are not separable even in principle: `PyFunctionHighlightingAnnotator` traverses every leaf of the annotation expression and merges adjacent ranges, so the module qualifier and the class it qualifies share one `PY.ANNOTATION` range.
+
+Decision: the Visual Studio Code and Neovim ports pin Python modules to the identifier foreground rather than introducing a distinct module identity that IntelliJ cannot reproduce. Both would otherwise default to a type-like color — the `namespace` semantic token in Visual Studio Code, the `@module` capture in Neovim. Revisit if the plugin ever adds a module key.
+
 Decision: `PY.PREDEFINED_USAGE` is italic-only. Python's separate method-call highlighting supplies green for calls such as `obj.__iter__()`, while field usages such as `obj.__doc__` retain identifier-neutral foreground and gain italics.
 
 Captures, smart casts, backing fields, dynamic calls, package-level declarations, extension members, named arguments, SQL correlation, and similar context are also plugin-specific. They should keep the base foreground identity and add only a sparse effect or font modifier where the plugin permits it.
