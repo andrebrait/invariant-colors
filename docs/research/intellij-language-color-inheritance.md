@@ -136,10 +136,18 @@ identity it has at its declaration site.
 
 Built-ins are the one exception, and they show the escape hatch: the annotation runs are
 added with `LOW_PRIORITY_HIGHLIGHTING`, so any normal-priority annotator overrides them.
-That is how `PY_BUILTIN_NAME` survives inside an annotation. An upstream fix therefore
-stays small and local to that one file — exclude punctuation leaves from
+That is how `PY_BUILTIN_NAME` survives inside an annotation, confirmed in the editor —
+built-in names render pale blue inside a hint whose other leaves stay neutral. An upstream
+fix therefore stays small and local to that one file: exclude punctuation leaves from
 `isHighlightableAnnotationLeaf`, and paint resolved type-parameter references
 `PY_TYPE_PARAMETER` at normal priority.
+
+Check any of this against a module that has an interpreter attached. These annotators
+resolve names through `PyBuiltinCache`, so a Python file in a module carrying no Python SDK
+paints a far bleaker picture than the real ceiling: built-ins lose their colour entirely,
+and a built-in call renders in ordinary function green because `visitPyCallExpression` only
+skips callees it can resolve as built-in. The scratch files under
+`docs/misc/screenshot-scratches` are split per language so each gets the right SDK.
 
 Decision: do not ship a Python annotator to work around this. That would turn a colour
 scheme into a code plugin, with platform API churn and plugin verification on every IDE

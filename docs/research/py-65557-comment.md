@@ -40,7 +40,9 @@ merges adjacent leaves into contiguous runs, and paints each run `PY_ANNOTATION`
 
 Crucially it does so with `LOW_PRIORITY_HIGHLIGHTING`, so a normal-priority annotator
 already wins — that is exactly how `PY_BUILTIN_NAME` stays visible inside an annotation
-today. The extension mechanism is in place; these two cases just are not using it.
+today, which is easy to confirm in the editor: in `x: dict[str, int]` the `dict`, `str` and
+`int` keep the built-in colour while the brackets and comma do not. The extension mechanism
+is in place; these two cases just are not using it.
 
 That suggests both fixes are local to that one method:
 
