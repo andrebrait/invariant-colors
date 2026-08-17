@@ -113,7 +113,7 @@ Finding: there is no module or package color key for Python, and no generic Lang
 
 Decision: the Visual Studio Code and Neovim ports pin Python modules to the identifier foreground rather than introducing a distinct module identity that IntelliJ cannot reproduce. Both would otherwise default to a type-like color — the `namespace` semantic token in Visual Studio Code, the `@module` capture in Neovim. Revisit if the plugin ever adds a module key.
 
-Decision: `PY.PREDEFINED_USAGE` is italic-only. Python's separate method-call highlighting supplies green for calls such as `obj.__iter__()`, while field usages such as `obj.__doc__` retain identifier-neutral foreground and gain italics.
+Decision: `PY.PREDEFINED_USAGE` carries the same green `#a7ec21`, italic, as `PY.PREDEFINED_DEFINITION`. It was previously italic-only, on the reasoning that method-call highlighting already supplies green for calls such as `obj.__iter__()`; but that left field usages such as `obj.__doc__` neutral, so a predefined name changed colour between its declaration and its use. Matching the two keys restores the rule that a symbol keeps one identity wherever it appears.
 
 Captures, smart casts, backing fields, dynamic calls, package-level declarations, extension members, named arguments, SQL correlation, and similar context are also plugin-specific. They should keep the base foreground identity and add only a sparse effect or font modifier where the plugin permits it.
 

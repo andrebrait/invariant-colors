@@ -120,9 +120,12 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   }
   assert.match(scheme, /name="KOTLIN_ARROW">\s*<value>\s*<option name="FOREGROUND" value="cfbfad"\s*\/>\s*<\/value>\s*<\/option>/);
   assert.match(scheme, /name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">\s*<value\s*\/>\s*<\/option>/);
-  const predefinedUsage = scheme.match(/name="PY\.PREDEFINED_USAGE">[\s\S]*?<value>([\s\S]*?)<\/value>/)[1];
-  assert.match(predefinedUsage, /name="FONT_TYPE" value="2"/);
-  assert.doesNotMatch(predefinedUsage, /FOREGROUND/);
+  // A predefined name keeps one identity: __init__ and obj.__doc__ are both green italic.
+  for (const predefined of ['PY.PREDEFINED_DEFINITION', 'PY.PREDEFINED_USAGE']) {
+    const value = scheme.match(new RegExp(`name="${predefined}">[\\s\\S]*?<value>([\\s\\S]*?)</value>`))[1];
+    assert.match(value, /name="FOREGROUND" value="a7ec21"/);
+    assert.match(value, /name="FONT_TYPE" value="2"/);
+  }
   for (const comment of ['DEFAULT_BLOCK_COMMENT', 'DEFAULT_DOC_COMMENT', 'DEFAULT_LINE_COMMENT']) {
     assert.match(scheme, new RegExp(`name="${comment}"[\\s\\S]*?value="ffffff"`));
   }
