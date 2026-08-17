@@ -1,0 +1,95 @@
+name: Sync VS Code theme defaults
+
+# Invariant copies VS Code's Dark 2026 chrome because an extension cannot inherit a
+# built-in theme. This watches the stable channel and opens a pull request whenever a
+# released VS Code changes those defaults, so the copy never drifts silently.
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: VS Code version to sync against (defaults to the latest stable release)
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-vscode-theme
+  cancel-in-progress: false
+
+env:
+  BRANCH: chore/sync-vscode-theme
+
+jobs:
+  sync:
+    name: Compare against stable VS Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 'lts/*'
+      - name: Resolve stable version
+        id: vscode
+        run: |
+          version="${{ inputs.version }}"
+          if [ -z "$version" ]; then
+            version=$(curl -fsS https://update.code.visualstudio.com/api/update/darwin/stable/latest | node -p "JSON.parse(require('fs').readFileSync(0)).productVersion")
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Latest stable VS Code: $version"
+      - name: Sync workbench colors
+        id: sync
+        run: |
+          set -o pipefail
+          {
+            echo 'report<<REPORT'
+            node scripts/sync-vscode-chrome.mjs "${{ steps.vscode.outputs.version }}" | tee /dev/stderr
+            echo REPORT
+          } >> "$GITHUB_OUTPUT"
+      - name: Check for changes
+        id: changed
+        run: git diff --quiet -- vscode/invariant-color-theme.json && echo "result=false" >> "$GITHUB_OUTPUT" || echo "result=true" >> "$GITHUB_OUTPUT"
+      - name: Validate the updated theme
+        if: steps.changed.outputs.result == 'true'
+        run: npm test --prefix vscode
+      - name: Open pull request
+        if: steps.changed.outputs.result == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.vscode.outputs.version }}
+          REPORT: ${{ steps.sync.outputs.report }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git commit -qm "chore: sync workbench colors with VS Code $VERSION" vscode/invariant-color-theme.json
+          git push --force origin "HEAD:$BRANCH"
+          body=$(cat <<EOF
+          VS Code **$VERSION** changed the Dark 2026 defaults that Invariant copies for its
+          non-editor surfaces. Regenerated with:
+
+          \`\`\`
+          node scripts/sync-vscode-chrome.mjs $VERSION
+          \`\`\`
+
+          \`\`\`
+          $REPORT
+          \`\`\`
+
+          Source: https://github.com/microsoft/vscode/tree/$VERSION/extensions/theme-defaults/themes
+
+          Editor, terminal, diff and peek colors are Invariant's own and are left untouched.
+          Review the diff and add a CHANGELOG entry before merging.
+          EOF
+          )
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            gh pr edit "$BRANCH" --body "$body"
+          else
+            gh pr create --base master --head "$BRANCH" \
+              --title "chore: sync workbench colors with VS Code $VERSION" --body "$body"
+          fi
