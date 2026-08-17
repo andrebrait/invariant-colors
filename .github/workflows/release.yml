@@ -40,6 +40,11 @@ jobs:
         run: npx --yes @vscode/vsce@3.9.2 publish --packagePath "vscode/invariant-colors-$PLUGIN_VERSION.vsix"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: Publish to Open VSX
+        if: ${{ !github.event.release.prerelease }}
+        run: npx --yes ovsx@1.1.1 publish "vscode/invariant-colors-$PLUGIN_VERSION.vsix"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
   jetbrains:
     name: JetBrains Marketplace
