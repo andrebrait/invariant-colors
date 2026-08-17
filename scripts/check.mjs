@@ -38,6 +38,9 @@ for (const type of ['type', 'class', 'interface', 'struct', 'enum']) {
   assert.equal(theme.semanticTokenColors[type], '#52e3f6');
 }
 assert.equal(theme.semanticTokenColors.namespace, '#52e3f6');
+// Type parameters are deliberately not the type cyan: they name a slot, not a type.
+assert.deepEqual(theme.semanticTokenColors.typeParameter, { foreground: '#fd971f', bold: true });
+assert.notEqual(theme.semanticTokenColors.typeParameter.foreground, theme.semanticTokenColors.type);
 for (const pythonModule of ['namespace:python', 'module:python']) {
   assert.equal(theme.semanticTokenColors[pythonModule], theme.semanticTokenColors.variable);
 }
@@ -53,7 +56,21 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   assert.doesNotMatch(scheme, /<option name="RECORD_(?:NAME|COMPONENT)_ATTRIBUTES"/);
   assert.match(scheme, /name="ANNOTATION_ATTRIBUTE_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/);
   assert.doesNotMatch(scheme, /name="ANNOTATION_NAME_ATTRIBUTES"/);
-  assert.doesNotMatch(scheme, /name="MARKDOWN_(?:BOLD|ITALIC|LIST_ITEM|ORDERED_LIST|UNORDERED_LIST)"/);
+  // Markdown emphasis and headings carry structure through weight; list markup keeps
+  // inheriting so prose never spends a color the code palette needs.
+  assert.doesNotMatch(scheme, /name="MARKDOWN_(?:LIST_ITEM|ORDERED_LIST|UNORDERED_LIST)"/);
+  assert.match(scheme, /name="MARKDOWN_BOLD">\s*<value>\s*<option name="FONT_TYPE" value="1"\s*\/>/);
+  assert.match(scheme, /name="MARKDOWN_ITALIC">\s*<value>\s*<option name="FONT_TYPE" value="2"\s*\/>/);
+  for (const level of [1, 2, 3, 4, 5, 6]) {
+    assert.match(
+      scheme,
+      new RegExp(`name="MARKDOWN_HEADER_LEVEL_${level}">\\s*<value>\\s*<option name="FOREGROUND" value="cfbfad"\\s*/>\\s*<option name="FONT_TYPE" value="3"\\s*/>`)
+    );
+  }
+  assert.match(
+    scheme,
+    /name="TYPE_PARAMETER_NAME_ATTRIBUTES">\s*<value>\s*<option name="FOREGROUND" value="fd971f"\s*\/>\s*<option name="FONT_TYPE" value="1"\s*\/>/
+  );
   assert.match(scheme, /name="ABSTRACT_METHOD_ATTRIBUTES"[\s\S]*?value="bed6ff"/);
   assert.match(scheme, /name="DEFAULT_FUNCTION_CALL"[\s\S]*?value="a7ec21"/);
   assert.match(scheme, /name="DEFAULT_FUNCTION_DECLARATION"[\s\S]*?value="a7ec21"/);

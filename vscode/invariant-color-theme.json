@@ -472,7 +472,10 @@
     "interface": "#52e3f6",
     "struct": "#52e3f6",
     "enum": "#52e3f6",
-    "typeParameter": "#bfa4a4",
+    "typeParameter": {
+      "foreground": "#fd971f",
+      "bold": true
+    },
     "parameter": "#79abff",
     "selfParameter": {
       "foreground": "#ff007f",

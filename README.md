@@ -34,7 +34,7 @@ The same kind of symbol should keep the same foreground wherever it appears. A c
 | Variables and fields | ![#cfbfad](docs/images/swatches/cfbfad.svg) Warm neutral `#cfbfad` | Locals, instance fields, global variables |
 | Parameters | ![#79abff](docs/images/swatches/79abff.svg) Blue `#79abff` | Function, method, and lambda parameters |
 | Types | ![#52e3f6](docs/images/swatches/52e3f6.svg) Cyan `#52e3f6` | Classes, interfaces, records |
-| Type parameters | ![#bfa4a4](docs/images/swatches/bfa4a4.svg) Muted rose `#bfa4a4` | Generic type declarations and references |
+| Type parameters | ![#fd971f](docs/images/swatches/fd971f.svg) Bold orange `#fd971f` | Generic type declarations and references |
 | Implemented methods | ![#a7ec21](docs/images/swatches/a7ec21.svg) Green `#a7ec21` | Concrete declarations and calls |
 | Signature-only methods | ![#bed6ff](docs/images/swatches/bed6ff.svg) Pale blue `#bed6ff` | Abstract and interface methods |
 | Keywords and reserved names | ![#ff007f](docs/images/swatches/ff007f.svg) Bold pink `#ff007f` | `class`, `return`, `this`, `self`, `null` |

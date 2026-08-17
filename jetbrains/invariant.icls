@@ -730,6 +730,55 @@
     <option name="LOG_WARNING_OUTPUT">
       <value />
     </option>
+    <!-- Markdown carries structure through weight rather than color: headings stay on the
+         identifier foreground so prose never competes with code for the palette. -->
+    <option name="MARKDOWN_BOLD">
+      <value>
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="MARKDOWN_ITALIC">
+      <value>
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_1">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+        <option name="EFFECT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_2">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_3">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_4">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_5">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER_LEVEL_6">
+      <value>
+        <option name="FOREGROUND" value="cfbfad" />
+        <option name="FONT_TYPE" value="3" />
+      </value>
+    </option>
     <option name="MARKED_FOR_REMOVAL_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="808080" />
@@ -865,7 +914,8 @@
     </option>
     <option name="TYPE_PARAMETER_NAME_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="bfa4a4" />
+        <option name="FOREGROUND" value="fd971f" />
+        <option name="FONT_TYPE" value="1" />
       </value>
     </option>
     <option name="TYPO">
