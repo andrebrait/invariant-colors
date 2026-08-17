@@ -4,7 +4,7 @@
   "description": "A semantic dark editor theme based on Monokai, where color identifies what a symbol is and formatting shows how it is used.",
   "version": "1.0.0",
   "publisher": "andrebrait",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "EPL-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/andrebrait/invariant-colors.git"
