@@ -10,11 +10,13 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>First stable release of Invariant for JetBrains IDEs.</p>
+    <p>Corrects colors that never reached the editor, and adds Markdown styling.</p>
     <ul>
-      <li>Semantic Language Defaults shared across supported languages.</li>
-      <li>Explicit coverage for Java, Kotlin, Python, CSS, and shell scripts.</li>
-      <li>Consistent colors for symbol identity, with formatting used for context.</li>
+      <li>Class references, reserved names, Python <code>self</code> and <code>cls</code>, and Kotlin operator and dynamic-call punctuation now render their intended colors. They previously fell back to whichever color the IDE declares for them.</li>
+      <li>Type parameters use a bold orange rather than a muted rose.</li>
+      <li>Markdown emphasis and headings carry structure through weight, on the identifier foreground.</li>
+      <li>Python byte strings follow the ordinary string color.</li>
+      <li>Python special names are green where they are defined and neutral where they are read, matching the other editors.</li>
     </ul>
   ]]></change-notes>
 
