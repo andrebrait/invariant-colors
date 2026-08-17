@@ -121,7 +121,11 @@ Finding: there is no module or package color key for Python, and no generic Lang
 
 Decision: the Visual Studio Code and Neovim ports pin Python modules to the identifier foreground rather than introducing a distinct module identity that IntelliJ cannot reproduce. Both would otherwise default to a type-like color — the `namespace` semantic token in Visual Studio Code, the `@module` capture in Neovim. Revisit if the plugin ever adds a module key.
 
-Decision: `PY.PREDEFINED_USAGE` carries the same green `#a7ec21`, italic, as `PY.PREDEFINED_DEFINITION`. It was previously italic-only, on the reasoning that method-call highlighting already supplies green for calls such as `obj.__iter__()`; but that left field usages such as `obj.__doc__` neutral, so a predefined name changed colour between its declaration and its use. Matching the two keys restores the rule that a symbol keeps one identity wherever it appears.
+Decision: `PY.PREDEFINED_DEFINITION` is green `#a7ec21` plain and `PY.PREDEFINED_USAGE` is neutral `#cfbfad` plain, neither italic. This deliberately gives up the rule that a symbol keeps one foreground everywhere, in exchange for the three ports agreeing.
+
+Nothing outside IntelliJ reports a special name. Visual Studio Code's Pylance emits `__init__` as an ordinary `method` and `obj.__doc__` as a `property`, so they land on green and neutral with no italic available; Neovim resolves the same two through `@lsp.type.method` and `@lsp.type.property`. The bundled MagicPython grammar does carry `support.function.magic.python` and `support.variable.magic.python`, but semantic tokens cover those ranges and win, so a rule on them would be dead for anyone running Pylance. Matching IntelliJ to the other two is therefore the only way to make the ports agree without a mechanism that quietly does nothing.
+
+`PY.PREDEFINED_USAGE` is pinned rather than left to inherit, because its declared fallback is `DEFAULT_PREDEFINED_SYMBOL`, which carries the reserved-name pink.
 
 Captures, smart casts, backing fields, dynamic calls, package-level declarations, extension members, named arguments, SQL correlation, and similar context are also plugin-specific. They should keep the base foreground identity and add only a sparse effect or font modifier where the plugin permits it.
 

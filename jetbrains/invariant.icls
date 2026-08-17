@@ -865,13 +865,13 @@
     <option name="PY.PREDEFINED_DEFINITION">
       <value>
         <option name="FOREGROUND" value="a7ec21" />
-        <option name="FONT_TYPE" value="2" />
       </value>
     </option>
+    <!-- Pinned neutral rather than inherited: PY.PREDEFINED_USAGE falls back to
+         DEFAULT_PREDEFINED_SYMBOL, which is the reserved-name pink. -->
     <option name="PY.PREDEFINED_USAGE">
       <value>
-        <option name="FOREGROUND" value="a7ec21" />
-        <option name="FONT_TYPE" value="2" />
+        <option name="FOREGROUND" value="cfbfad" />
       </value>
     </option>
     <!-- PyHighlighter declares the fallback as DEFAULT_PARAMETER; self and cls need the keyword colour spelled out. -->

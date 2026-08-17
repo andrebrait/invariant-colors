@@ -78,7 +78,7 @@ Kotlin follows the same language-default meanings for types, parameters, variabl
 
 ![Python example using Invariant](docs/images/intellij-python.png)
 
-Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special names are green and italic wherever they appear, at their definition and at their use.
+Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special names such as `__init__` are green where they are defined and neutral where they are read, matching what Visual Studio Code and Neovim can express.
 
 Imported modules and packages read as ordinary identifiers in the warm neutral `#cfbfad`. IntelliJ's Python plugin exposes no color key for module references, so the name in `import os` or in an `os.path` qualifier simply keeps the default foreground. The other ports are pinned to match: without an explicit rule, Visual Studio Code would color modules with the cyan `namespace` token and Neovim would inherit a type-like default from the `@module` capture, both of which would make a module read as a type in one editor but not another.
 

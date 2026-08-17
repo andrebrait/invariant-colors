@@ -120,11 +120,16 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   }
   assert.match(scheme, /name="KOTLIN_ARROW">\s*<value>\s*<option name="FOREGROUND" value="cfbfad"\s*\/>\s*<\/value>\s*<\/option>/);
   assert.match(scheme, /name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">\s*<value\s*\/>\s*<\/option>/);
-  // A predefined name keeps one identity: __init__ and obj.__doc__ are both green italic.
-  for (const predefined of ['PY.PREDEFINED_DEFINITION', 'PY.PREDEFINED_USAGE']) {
+  // Special names follow what Visual Studio Code can express: green at the definition,
+  // neutral at the usage, no italic on either. Usage is pinned rather than inherited because
+  // PY.PREDEFINED_USAGE falls back to DEFAULT_PREDEFINED_SYMBOL, the reserved-name pink.
+  for (const [predefined, colour] of [
+    ['PY.PREDEFINED_DEFINITION', 'a7ec21'],
+    ['PY.PREDEFINED_USAGE', 'cfbfad']
+  ]) {
     const value = scheme.match(new RegExp(`name="${predefined}">[\\s\\S]*?<value>([\\s\\S]*?)</value>`))[1];
-    assert.match(value, /name="FOREGROUND" value="a7ec21"/);
-    assert.match(value, /name="FONT_TYPE" value="2"/);
+    assert.match(value, new RegExp(`name="FOREGROUND" value="${colour}"`));
+    assert.doesNotMatch(value, /FONT_TYPE/);
   }
   for (const comment of ['DEFAULT_BLOCK_COMMENT', 'DEFAULT_DOC_COMMENT', 'DEFAULT_LINE_COMMENT']) {
     assert.match(scheme, new RegExp(`name="${comment}"[\\s\\S]*?value="ffffff"`));
