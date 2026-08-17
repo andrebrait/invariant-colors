@@ -105,6 +105,14 @@ Keys whose declared fallback already carries the intended colour are left to inh
 
 For Python, type annotations fall back to `DEFAULT_IDENTIFIER` and are left to do so, which is why a type hint reads as neutral text. Python 3.12 type parameters fall back to `DEFAULT_PARAMETER` rather than Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`, so they are pinned to the type-parameter orange explicitly. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
 
+Known debt: pale blue `#bed6ff` carries two meanings. It marks signature-only methods
+(`ABSTRACT_METHOD_ATTRIBUTES`, `INHERITED_METHOD_ATTRIBUTES`) and also runtime built-ins
+(`PY.BUILTIN_NAME`, `BASH.EXTERNAL_COMMAND`, `CSS.FUNCTION`), and the Visual Studio Code and
+Neovim ports now mirror that so the three stay consistent. This breaks the one-colour
+one-meaning rule the palette otherwise keeps. Accepted deliberately rather than overlooked:
+separating the two needs a new palette entry and a pass over every port, and the collision
+is tolerable until then. Do not "fix" it in one port alone.
+
 Decision: `PY.BUILTIN_NAME` retains its explicit pale-blue `#bed6ff` foreground. This intentionally overrides the plugin's `DEFAULT_PREDEFINED_SYMBOL` fallback because Python groups built-in functions and types under one color key.
 
 Decision: `PY.PREDEFINED_DEFINITION` remains green `#a7ec21`, italic, distinguishing Python special-name definitions such as `__init__` from ordinary function declarations.

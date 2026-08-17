@@ -36,7 +36,7 @@ The same kind of symbol should keep the same foreground wherever it appears. A c
 | Types | ![#52e3f6](docs/images/swatches/52e3f6.svg) Cyan `#52e3f6` | Classes, interfaces, records |
 | Type parameters | ![#fd971f](docs/images/swatches/fd971f.svg) Bold orange `#fd971f` | Generic type declarations and references |
 | Implemented methods | ![#a7ec21](docs/images/swatches/a7ec21.svg) Green `#a7ec21` | Concrete declarations and calls |
-| Signature-only methods | ![#bed6ff](docs/images/swatches/bed6ff.svg) Pale blue `#bed6ff` | Abstract and interface methods |
+| Signature-only / built-in | ![#bed6ff](docs/images/swatches/bed6ff.svg) Pale blue `#bed6ff` | Abstract and interface methods; runtime built-ins such as `int` and `len` |
 | Keywords and reserved names | ![#ff007f](docs/images/swatches/ff007f.svg) Bold pink `#ff007f` | `class`, `return`, `this`, `self`, `null` |
 | Strings | ![#ece47e](docs/images/swatches/ece47e.svg) Pale yellow `#ece47e` | String and character literals |
 | Numbers | ![#c48cff](docs/images/swatches/c48cff.svg) Purple `#c48cff` | Numeric literals |
@@ -78,7 +78,7 @@ Kotlin follows the same language-default meanings for types, parameters, variabl
 
 ![Python example using Invariant](docs/images/intellij-python.png)
 
-Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special method calls are green and italic; predefined fields remain neutral and italic.
+Python keeps parameters blue, fields neutral, calls green, and reserved names such as `self` and `cls` pink. Built-in names remain pale blue. Special names are green and italic wherever they appear, at their definition and at their use.
 
 Imported modules and packages read as ordinary identifiers in the warm neutral `#cfbfad`. IntelliJ's Python plugin exposes no color key for module references, so the name in `import os` or in an `os.path` qualifier simply keeps the default foreground. The other ports are pinned to match: without an explicit rule, Visual Studio Code would color modules with the cyan `namespace` token and Neovim would inherit a type-like default from the `@module` capture, both of which would make a module read as a type in one editor but not another.
 
