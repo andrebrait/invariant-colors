@@ -61,6 +61,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+      # Restores the Gradle cache CI writes on master, so the IntelliJ Platform is not
+      # downloaded again here. Left read-only on purpose: this job runs on a tag, and a
+      # cache written under one tag is unreadable from every other tag.
       - uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: 9.7.0
