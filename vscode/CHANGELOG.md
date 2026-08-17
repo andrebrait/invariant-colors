@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Python modules and packages now use the identifier foreground instead of the cyan namespace color, matching how IntelliJ renders them. Both the `namespace` and `module` semantic token names emitted by Python language servers are covered.
+- Workbench surfaces outside the editor — activity bar, side bar, status bar, title bar, panels, tabs, lists, menus and inputs — now match VS Code's Dark 2026 default theme. They previously fell back to the color registry's Dark+ era defaults, which painted a bright blue status bar and a light grey activity bar around the editor.
 
 ## 1.0.0
 
