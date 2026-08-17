@@ -26,7 +26,10 @@ class SearchService(private val values: List<String>) {
     }
 }
 
-val service = SearchService(listOf("src/Main.kt", "README.md"))
-val results = service.find("src/") { value -> value.endsWith(".kt") }
-check(results.isNotEmpty())
 // ## SELECTION ENDS HERE ##
+
+fun main() {
+    val service = SearchService(listOf("src/Main.kt", "README.md"))
+    val results = service.find("src/") { value -> value.endsWith(".kt") }
+    check(results.isNotEmpty())
+}
