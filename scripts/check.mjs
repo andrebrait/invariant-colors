@@ -76,10 +76,11 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   assert.match(scheme, /name="DEFAULT_FUNCTION_DECLARATION"[\s\S]*?value="a7ec21"/);
   assert.match(scheme, /name="DEFAULT_IDENTIFIER"[\s\S]*?value="cfbfad"/);
   assert.match(scheme, /name="DEFAULT_PARAMETER"[\s\S]*?value="79abff"/);
-  // baseAttributes is descriptive, not a directive: the fallback is fixed in IDE source by
-  // createTextAttributesKey(name, fallback), and the IDE drops or rewrites whatever a scheme
-  // claims. So an entry may only name the fallback the IDE itself declares, and any key whose
-  // colour differs from that fallback has to spell the colour out.
+  // baseAttributes can reset, but it cannot redirect. The fallback is fixed in IDE source by
+  // createTextAttributesKey(name, fallback); naming a different one is ignored and rewritten.
+  // Naming the declared one is still worth doing, because it clears whatever explicit value a
+  // parent scheme sets and drops the key back to its fallback. Any key whose colour differs
+  // from that fallback has to spell the colour out instead.
   for (const [key, base] of [
     ['DEFAULT_GLOBAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_INSTANCE_FIELD', 'DEFAULT_IDENTIFIER'],
@@ -87,6 +88,7 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
     ['DEFAULT_LABEL', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_LOCAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
     ['PY.ANNOTATION', 'DEFAULT_IDENTIFIER'],
+    ['PY.STRING.B', 'DEFAULT_STRING'],
     ['STATIC_METHOD_ATTRIBUTES', 'DEFAULT_STATIC_METHOD'],
     ['ANNOTATION_ATTRIBUTE_NAME_ATTRIBUTES', 'DEFAULT_METADATA']
   ]) {
@@ -107,8 +109,7 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
     ['KOTLIN_DYNAMIC_FUNCTION_CALL', 'a7ec21', null],
     ['KOTLIN_VARIABLE_AS_FUNCTION', 'a7ec21', null],
     ['KOTLIN_VARIABLE_AS_FUNCTION_LIKE', 'a7ec21', null],
-    ['KOTLIN_DYNAMIC_PROPERTY_CALL', 'cfbfad', null],
-    ['PY.STRING.B', 'ece47e', null]
+    ['KOTLIN_DYNAMIC_PROPERTY_CALL', 'cfbfad', null]
   ]) {
     const font = fontType ? `\\s*<option name="FONT_TYPE" value="${fontType}"\\s*/>` : '';
     assert.match(

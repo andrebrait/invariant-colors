@@ -25,16 +25,28 @@ Those fragments explicitly override concepts including JavaScript local/global v
 
 ## A scheme cannot redirect inheritance
 
-`baseAttributes` in an `.icls` file is descriptive, not a directive. The fallback of every
-key is fixed in IDE source by `TextAttributesKey.createTextAttributesKey(name, fallback)`,
-and a scheme can only record what that fallback already is. Write a different one and the
-IDE ignores it, then rewrites the entry to the declared fallback or drops it as redundant
-the next time it saves the scheme. Only an explicit `<value>` block changes what renders.
+`baseAttributes` in an `.icls` file can reset a key, but it cannot redirect one. The
+fallback of every key is fixed in IDE source by
+`TextAttributesKey.createTextAttributesKey(name, fallback)`. Write a different base and the
+IDE ignores it, then rewrites the entry to the declared fallback or drops it the next time
+it saves the scheme.
+
+Three states, which are easy to confuse:
+
+| Form | Effect |
+|---|---|
+| No entry at all | whatever the parent scheme sets for that key wins |
+| `baseAttributes` naming the declared fallback | clears the parent's value and drops the key to its fallback |
+| Explicit `<value>` block | sets the colour outright |
+
+The middle form is why `PY.STRING.B` needs an entry despite falling back to `DEFAULT_STRING`
+anyway: Darcula colours byte strings separately, we inherit that through Islands Dark, and
+only an entry clears it.
 
 This invalidates the obvious strategy of pointing a key at whichever semantic base we want.
-Where a key's declared fallback already carries the intended colour, inheriting is correct
-and the entry is worth keeping as documentation. Where it does not, the colour has to be
-spelled out, and `check.mjs` enforces that a key is expressed one way or the other.
+Where a key's declared fallback already carries the intended colour, inheriting is correct.
+Where it does not, the colour has to be spelled out, and `check.mjs` enforces that a key is
+expressed one way or the other.
 
 Fallbacks that surprised us, read from JetBrains source:
 
