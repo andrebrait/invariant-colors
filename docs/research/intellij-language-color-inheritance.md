@@ -55,7 +55,7 @@ Fallbacks that surprised us, read from JetBrains source:
 | `DEFAULT_CLASS_REFERENCE` | `DEFAULT_IDENTIFIER`, not `DEFAULT_CLASS_NAME` | class references render neutral unless pinned |
 | `DEFAULT_PREDEFINED_SYMBOL` | `DEFAULT_IDENTIFIER`, not `DEFAULT_KEYWORD` | reserved names render neutral unless pinned |
 | `PY.SELF_PARAMETER` | `DEFAULT_PARAMETER` | `self`/`cls` render parameter blue unless pinned |
-| `PY.TYPE_PARAMETER` | `DEFAULT_PARAMETER`, not `TYPE_PARAMETER_NAME_ATTRIBUTES` | Python type parameters do not follow the Java key |
+| `PY.TYPE_PARAMETER` | `DEFAULT_PARAMETER`, not `TYPE_PARAMETER_NAME_ATTRIBUTES` | moot: no annotator applies the key, so nothing renders it either way |
 | `PY.ANNOTATION` | `DEFAULT_IDENTIFIER` | type hints are neutral, and cannot be made to follow class references |
 | `KOTLIN_ARROW` | `PARENTHESIS` | pinned explicitly for this reason |
 | `KOTLIN_COLON`, `KOTLIN_QUEST`, `KOTLIN_EXCLEXCL`, `KOTLIN_DYNAMIC_FUNCTION_CALL`, `KOTLIN_DYNAMIC_PROPERTY_CALL`, `KOTLIN_VARIABLE_AS_FUNCTION`, `KOTLIN_VARIABLE_AS_FUNCTION_LIKE` | none declared | render unstyled unless pinned |
@@ -130,9 +130,15 @@ The colour-settings preview states the same thing outright: `List[<builtin>str</
 sits inside one annotation span, and a type parameter reads as `<typeParam>T</typeParam>`
 where it is declared but `<annotation>T</annotation>` where it is used as a hint.
 
-Two consequences we cannot style around. Subscript brackets cannot differ from the
-annotation foreground. A type parameter used as a hint cannot keep the type-parameter
-identity it has at its declaration site.
+Two consequences we cannot style around, both observed in the editor. Subscript brackets,
+commas and dots take the annotation foreground: in `x: dict[str, int]` the three names are
+built-in pale blue while `[`, `,` and `]` are neutral. And a type parameter has no identity
+to keep — `PY.TYPE_PARAMETER` is a dead key. No file in
+`python/python-psi-impl/src/com/jetbrains/python/validation` on branch `262` applies it;
+`PyTypeParameterListAnnotatorVisitor` only reports duplicate names and illegal bounds as
+errors. It is registered in `PythonColorsPage` and tagged in that page's preview text, so
+the setting appears to work while nothing in an editor ever paints it. `T` is therefore
+neutral both where it is declared and where it is used.
 
 Built-ins are the one exception, and they show the escape hatch: the annotation runs are
 added with `LOW_PRIORITY_HIGHLIGHTING`, so any normal-priority annotator overrides them.
@@ -148,6 +154,11 @@ paints a far bleaker picture than the real ceiling: built-ins lose their colour 
 and a built-in call renders in ordinary function green because `visitPyCallExpression` only
 skips callees it can resolve as built-in. The scratch files under
 `docs/misc/screenshot-scratches` are split per language so each gets the right SDK.
+
+The scheme still pins `PY.TYPE_PARAMETER` to the type-parameter orange. That is inert in
+IntelliJ today and kept deliberately, so the colour is already right if the key is ever
+wired up. The Visual Studio Code port is unaffected: Pylance emits a `typeParameter`
+semantic token, so type parameters are orange there now.
 
 Decision: do not ship a Python annotator to work around this. That would turn a colour
 scheme into a code plugin, with platform API churn and plugin verification on every IDE
