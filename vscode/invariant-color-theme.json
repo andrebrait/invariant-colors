@@ -469,6 +469,7 @@
     "module:python": "#cfbfad",
     "type": "#52e3f6",
     "class": "#52e3f6",
+    "class.defaultLibrary": "#bed6ff",
     "interface": "#52e3f6",
     "struct": "#52e3f6",
     "enum": "#52e3f6",
@@ -498,6 +499,7 @@
     "function": "#a7ec21",
     "method": "#a7ec21",
     "function.abstract": "#bed6ff",
+    "function.defaultLibrary": "#bed6ff",
     "method.abstract": "#bed6ff",
     "decorator": "#ffffff",
     "macro": {

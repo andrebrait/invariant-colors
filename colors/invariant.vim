@@ -56,6 +56,8 @@ highlight DiagnosticHint  guifg=#659c6b guibg=NONE ctermfg=71  ctermbg=NONE
 highlight SM2Parameter guifg=#79abff guibg=NONE ctermfg=111 ctermbg=NONE
 highlight SM2Signature guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2Static    guifg=NONE    guibg=NONE gui=italic ctermfg=NONE ctermbg=NONE cterm=italic
+highlight SM2Builtin   guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
+highlight SM2TypeParam guifg=#fd971f guibg=NONE gui=bold ctermfg=208 ctermbg=NONE cterm=bold
 highlight! link pythonClassVar Statement
 
 if has('nvim')
@@ -67,10 +69,14 @@ if has('nvim')
   highlight! link @function.method Function
   highlight! link @constructor Function
   highlight! link @type Type
-  highlight! link @type.builtin Type
+  highlight! link @type.builtin SM2Builtin
+  highlight! link @function.builtin SM2Builtin
+  highlight! link @lsp.typemod.class.defaultLibrary SM2Builtin
+  highlight! link @lsp.typemod.function.defaultLibrary SM2Builtin
   highlight! link @lsp.type.class Type
   highlight! link @lsp.type.interface Type
   highlight! link @lsp.type.parameter SM2Parameter
+  highlight! link @lsp.type.typeParameter SM2TypeParam
   highlight! link @lsp.type.property Identifier
   highlight! link @lsp.type.variable Identifier
   highlight! link @lsp.type.function Function

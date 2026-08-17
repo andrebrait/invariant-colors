@@ -158,6 +158,17 @@ assert.match(vim, /highlight Normal\s+guifg=#cfbfad guibg=#191a1c/);
 assert.match(vim, /highlight Pmenu\s+guifg=#cfbfad guibg=#27282b/);
 assert.match(vim, /highlight! link pythonClassVar Statement/);
 assert.match(vim, /@lsp\.mod\.static SM2Static/);
+// Type parameters and built-ins carry the same identities as the IntelliJ scheme.
+assert.match(vim, /highlight SM2TypeParam guifg=#fd971f[^\n]*gui=bold/);
+assert.match(vim, /highlight SM2Builtin\s+guifg=#bed6ff/);
+assert.match(vim, /link @lsp\.type\.typeParameter SM2TypeParam/);
+for (const builtin of ['@type\\.builtin', '@function\\.builtin', '@lsp\\.typemod\\.class\\.defaultLibrary', '@lsp\\.typemod\\.function\\.defaultLibrary']) {
+  assert.match(vim, new RegExp(`link ${builtin} SM2Builtin`));
+}
+assert.equal(theme.semanticTokenColors['typeParameter'].foreground, '#fd971f');
+for (const builtin of ['class.defaultLibrary', 'function.defaultLibrary']) {
+  assert.equal(theme.semanticTokenColors[builtin], '#bed6ff');
+}
 for (const pythonModule of ['@module\\.python', '@module\\.builtin\\.python', '@lsp\\.type\\.namespace\\.python']) {
   assert.match(vim, new RegExp(`link ${pythonModule} Identifier`));
 }
