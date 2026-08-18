@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Markdown, HTML, XML, YAML and shell scripts now carry explicit colors, matching the IntelliJ scheme. Headings are green and bold italic, link text keeps the type color and destinations the parameter color, tag names read as keywords with neutral brackets, attribute names are green, entity references and YAML anchors are pale blue, and here-document delimiters are orange.
+
 ## 1.1.0
 
 - Python modules and packages now use the identifier foreground instead of the cyan namespace color, matching how IntelliJ renders them. Both the `namespace` and `module` semantic token names emitted by Python language servers are covered.

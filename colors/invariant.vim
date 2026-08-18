@@ -58,6 +58,9 @@ highlight SM2Signature guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2Static    guifg=NONE    guibg=NONE gui=italic ctermfg=NONE ctermbg=NONE cterm=italic
 highlight SM2Builtin   guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2TypeParam guifg=#fd971f guibg=NONE gui=bold ctermfg=208 ctermbg=NONE cterm=bold
+highlight SM2Heading   guifg=#a7ec21 guibg=NONE gui=bold,italic ctermfg=154 ctermbg=NONE cterm=bold,italic
+highlight SM2LinkText  guifg=#52e3f6 guibg=NONE gui=underline ctermfg=81 ctermbg=NONE cterm=underline
+highlight SM2LinkUrl   guifg=#79abff guibg=NONE gui=underline ctermfg=111 ctermbg=NONE cterm=underline
 highlight! link pythonClassVar Statement
 
 if has('nvim')
@@ -83,6 +86,18 @@ if has('nvim')
   highlight! link @lsp.type.method Function
   highlight! link @lsp.mod.abstract SM2Signature
   highlight! link @lsp.mod.static SM2Static
+  " Markup mirrors the IntelliJ scheme: headings carry weight on the function green,
+  " links keep the type and parameter colours, tags read as keywords.
+  highlight! link @markup.heading SM2Heading
+  highlight! link @markup.strong Statement
+  highlight! link @markup.italic SM2Static
+  highlight! link @markup.link.label SM2LinkText
+  highlight! link @markup.link.url SM2LinkUrl
+  highlight! link @tag Statement
+  highlight! link @tag.builtin Statement
+  highlight! link @tag.delimiter Identifier
+  highlight! link @tag.attribute Function
+  highlight! link @character.special SM2Builtin
   " Python modules are ordinary identifiers, matching IntelliJ.
   highlight! link @module.python Identifier
   highlight! link @module.builtin.python Identifier

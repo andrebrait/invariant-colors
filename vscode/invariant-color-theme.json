@@ -448,7 +448,110 @@
         "entity.name.section"
       ],
       "settings": {
+        "foreground": "#a7ec21",
+        "fontStyle": "bold italic"
+      }
+    },
+    {
+      "name": "Markup emphasis",
+      "scope": [
+        "markup.bold"
+      ],
+      "settings": {
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Markup italics",
+      "scope": [
+        "markup.italic"
+      ],
+      "settings": {
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Markup link text",
+      "scope": [
+        "string.other.link.title.markdown",
+        "string.other.link.description.markdown"
+      ],
+      "settings": {
         "foreground": "#52e3f6",
+        "fontStyle": "underline"
+      }
+    },
+    {
+      "name": "Markup link destinations",
+      "scope": [
+        "markup.underline.link"
+      ],
+      "settings": {
+        "foreground": "#79abff",
+        "fontStyle": "underline"
+      }
+    },
+    {
+      "name": "Markup tag names",
+      "scope": [
+        "entity.name.tag.html",
+        "entity.name.tag.xml",
+        "entity.name.tag.localname.xml"
+      ],
+      "settings": {
+        "foreground": "#ff007f",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Markup tag punctuation",
+      "scope": [
+        "punctuation.definition.tag"
+      ],
+      "settings": {
+        "foreground": "#cfbfad"
+      }
+    },
+    {
+      "name": "Markup attribute names",
+      "scope": [
+        "entity.other.attribute-name.html",
+        "entity.other.attribute-name.xml",
+        "entity.other.attribute-name.localname.xml"
+      ],
+      "settings": {
+        "foreground": "#a7ec21"
+      }
+    },
+    {
+      "name": "Markup entities",
+      "scope": [
+        "constant.character.entity"
+      ],
+      "settings": {
+        "foreground": "#bed6ff"
+      }
+    },
+    {
+      "name": "YAML anchors and aliases",
+      "scope": [
+        "keyword.control.flow.anchor.yaml",
+        "keyword.control.flow.alias.yaml",
+        "punctuation.definition.anchor.yaml",
+        "punctuation.definition.alias.yaml"
+      ],
+      "settings": {
+        "foreground": "#bed6ff"
+      }
+    },
+    {
+      "name": "Shell heredoc delimiters",
+      "scope": [
+        "keyword.operator.heredoc.shell",
+        "punctuation.definition.string.heredoc.delimiter.shell"
+      ],
+      "settings": {
+        "foreground": "#fd971f",
         "fontStyle": "bold"
       }
     },

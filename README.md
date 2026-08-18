@@ -92,7 +92,10 @@ IntelliJ's Language Defaults provide the base mapping for every language that us
 | Kotlin | Kotlin-specific operators, arrows, dynamic calls, named arguments, and smart-cast contexts |
 | Python | Built-ins, `self`, predefined names, annotations, and type parameters |
 | CSS | Classes, functions, hashes, identifiers, and property names |
-| Shell Script | External commands and subshell commands |
+| Shell Script | External commands, subshell commands, and here-document delimiters |
+| Markdown | Headings, emphasis, links, and autolinks |
+| HTML and XML | Tag names and brackets, attribute names, custom tags, and entity references |
+| YAML | Anchors and aliases |
 
 Other IntelliJ languages receive the semantic Language Defaults automatically. Their plugins may add concepts that have not yet been tuned here.
 

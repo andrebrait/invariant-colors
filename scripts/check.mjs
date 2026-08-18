@@ -64,7 +64,38 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   for (const level of [1, 2, 3, 4, 5, 6]) {
     assert.match(
       scheme,
-      new RegExp(`name="MARKDOWN_HEADER_LEVEL_${level}">\\s*<value>\\s*<option name="FOREGROUND" value="cfbfad"\\s*/>\\s*<option name="FONT_TYPE" value="3"\\s*/>`)
+      new RegExp(`name="MARKDOWN_HEADER_LEVEL_${level}">\\s*<value>\\s*<option name="FOREGROUND" value="a7ec21"\\s*/>\\s*<option name="FONT_TYPE" value="3"\\s*/>`)
+    );
+  }
+  // Markdown links keep the link colour and an underline; destinations read as parameters.
+  for (const [link, colour] of [
+    ['MARKDOWN_LINK_TEXT', '52e3f6'],
+    ['MARKDOWN_LINK_DESTINATION', '79abff'],
+    ['MARKDOWN_AUTO_LINK', '79abff']
+  ]) {
+    assert.match(
+      scheme,
+      new RegExp(`name="${link}">\\s*<value>\\s*<option name="FOREGROUND" value="${colour}"\\s*/>\\s*<option name="EFFECT_COLOR" value="${colour}"\\s*/>\\s*<option name="EFFECT_TYPE" value="1"\\s*/>`)
+    );
+  }
+  // Markup: tags and attributes reset to their declared fallbacks, entities and custom tags are pinned.
+  for (const [key, base] of [
+    ['HTML_TAG', 'DEFAULT_TAG'],
+    ['XML_TAG', 'DEFAULT_TAG'],
+    ['HTML_TAG_NAME', 'DEFAULT_KEYWORD'],
+    ['XML_TAG_NAME', 'DEFAULT_KEYWORD'],
+    ['HTML_ATTRIBUTE_NAME', 'DEFAULT_ATTRIBUTE'],
+    ['XML_ATTRIBUTE_NAME', 'DEFAULT_ATTRIBUTE']
+  ]) {
+    assert.match(scheme, new RegExp(`name="${key}" baseAttributes="${base}"`));
+  }
+  for (const entity of ['HTML_ENTITY_REFERENCE', 'XML_ENTITY_REFERENCE', 'YAML_ANCHOR']) {
+    assert.match(scheme, new RegExp(`name="${entity}">\\s*<value>\\s*<option name="FOREGROUND" value="bed6ff"\\s*/>`));
+  }
+  for (const heredoc of ['BASH.HERE_DOC_START', 'BASH.HERE_DOC_END']) {
+    assert.match(
+      scheme,
+      new RegExp(`name="${heredoc}">\\s*<value>\\s*<option name="FOREGROUND" value="fd971f"\\s*/>\\s*<option name="FONT_TYPE" value="1"\\s*/>`)
     );
   }
   assert.match(
@@ -166,6 +197,18 @@ assert.match(vim, /@lsp\.mod\.static SM2Static/);
 // Type parameters and built-ins carry the same identities as the IntelliJ scheme.
 assert.match(vim, /highlight SM2TypeParam guifg=#fd971f[^\n]*gui=bold/);
 assert.match(vim, /highlight SM2Builtin\s+guifg=#bed6ff/);
+// Markup carries across the ports: headings on the function green, links underlined.
+assert.match(vim, /highlight SM2Heading\s+guifg=#a7ec21[^\n]*gui=bold,italic/);
+for (const [capture, group] of [['@markup\\.heading', 'SM2Heading'], ['@markup\\.link\\.label', 'SM2LinkText'], ['@markup\\.link\\.url', 'SM2LinkUrl'], ['@tag', 'Statement'], ['@tag\\.attribute', 'Function']]) {
+  assert.match(vim, new RegExp(`link ${capture} ${group}`));
+}
+const markup = name => theme.tokenColors.find(rule => rule.name === name).settings;
+assert.deepEqual(markup('Markup headings'), { foreground: '#a7ec21', fontStyle: 'bold italic' });
+assert.deepEqual(markup('Markup link text'), { foreground: '#52e3f6', fontStyle: 'underline' });
+assert.deepEqual(markup('Markup tag names'), { foreground: '#ff007f', fontStyle: 'bold' });
+assert.deepEqual(markup('Markup entities'), { foreground: '#bed6ff' });
+assert.deepEqual(markup('YAML anchors and aliases'), { foreground: '#bed6ff' });
+assert.deepEqual(markup('Shell heredoc delimiters'), { foreground: '#fd971f', fontStyle: 'bold' });
 assert.match(vim, /link @lsp\.type\.typeParameter SM2TypeParam/);
 for (const builtin of ['@type\\.builtin', '@function\\.builtin', '@lsp\\.typemod\\.class\\.defaultLibrary', '@lsp\\.typemod\\.function\\.defaultLibrary']) {
   assert.match(vim, new RegExp(`link ${builtin} SM2Builtin`));
