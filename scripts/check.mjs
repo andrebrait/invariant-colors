@@ -56,11 +56,12 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
   assert.doesNotMatch(scheme, /<option name="RECORD_(?:NAME|COMPONENT)_ATTRIBUTES"/);
   assert.match(scheme, /name="ANNOTATION_ATTRIBUTE_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/);
   assert.doesNotMatch(scheme, /name="ANNOTATION_NAME_ATTRIBUTES"/);
-  // Markdown emphasis and headings carry structure through weight; list markup keeps
-  // inheriting so prose never spends a color the code palette needs.
+  // Markdown emphasis carries structure through weight; headings use function green.
   assert.doesNotMatch(scheme, /name="MARKDOWN_(?:LIST_ITEM|ORDERED_LIST|UNORDERED_LIST)"/);
   assert.match(scheme, /name="MARKDOWN_BOLD">\s*<value>\s*<option name="FONT_TYPE" value="1"\s*\/>/);
   assert.match(scheme, /name="MARKDOWN_ITALIC">\s*<value>\s*<option name="FONT_TYPE" value="2"\s*\/>/);
+  assert.match(scheme, /name="MARKDOWN_HEADER_MARKER">\s*<value>\s*<option name="FOREGROUND" value="a7ec21"\s*\/>/);
+  assert.match(scheme, /name="MARKDOWN_LINK_LABEL">\s*<value>\s*<option name="FOREGROUND" value="ff007f"\s*\/>/);
   for (const level of [1, 2, 3, 4, 5, 6]) {
     assert.match(
       scheme,
@@ -198,13 +199,43 @@ assert.match(vim, /@lsp\.mod\.static SM2Static/);
 assert.match(vim, /highlight SM2TypeParam guifg=#fd971f[^\n]*gui=bold/);
 assert.match(vim, /highlight SM2Builtin\s+guifg=#bed6ff/);
 // Markup carries across the ports: headings on the function green, links underlined.
+assert.match(vim, /highlight SM2Bold\s+guifg=NONE[^\n]*gui=bold/);
 assert.match(vim, /highlight SM2Heading\s+guifg=#a7ec21[^\n]*gui=bold,italic/);
-for (const [capture, group] of [['@markup\\.heading', 'SM2Heading'], ['@markup\\.link\\.label', 'SM2LinkText'], ['@markup\\.link\\.url', 'SM2LinkUrl'], ['@tag', 'Statement'], ['@tag\\.attribute', 'Function']]) {
+for (const [capture, group] of [['@markup\\.heading', 'SM2Heading'], ['@markup\\.strong', 'SM2Bold'], ['@markup\\.list', 'Statement'], ['@conceal\\.markdown_inline', 'Statement'], ['@punctuation\\.special\\.markdown', 'Statement'], ['@markup\\.link', 'Identifier'], ['@markup\\.link\\.label', 'SM2LinkText'], ['@markup\\.link\\.url', 'SM2LinkUrl'], ['@tag', 'Statement'], ['@tag\\.attribute', 'Function']]) {
   assert.match(vim, new RegExp(`link ${capture} ${group}`));
 }
+for (const [group, target] of [
+  ['markdownBold', 'SM2Bold'], ['markdownItalic', 'SM2Static'], ['markdownHeadingDelimiter', 'SM2Heading'],
+  ['markdownLinkText', 'SM2LinkText'], ['markdownLinkTextDelimiter', 'SM2LinkText'],
+  ['markdownUrl', 'SM2LinkUrl'], ['markdownLinkDelimiter', 'Identifier'],
+  ['markdownIdDeclaration', 'Statement'], ['markdownId', 'Statement'],
+  ['markdownFootnote', 'Statement'], ['markdownFootnoteDefinition', 'Statement']
+]) {
+  assert.match(vim, new RegExp(`link ${group} ${target}`));
+}
+for (const level of [1, 2, 3, 4, 5, 6]) {
+  assert.match(vim, new RegExp(`link markdownH${level} SM2Heading`));
+}
+for (const marker of ['markdownBoldDelimiter', 'markdownItalicDelimiter', 'markdownBoldItalicDelimiter', 'markdownStrikeDelimiter', 'markdownCodeDelimiter', 'markdownListMarker', 'markdownOrderedListMarker', 'markdownBlockquote', 'markdownRule']) {
+  assert.match(vim, new RegExp(`link ${marker} Statement`));
+}
 const markup = name => theme.tokenColors.find(rule => rule.name === name).settings;
+const punctuation = theme.tokenColors.find(rule => rule.name === 'Operators and punctuation');
+for (const scope of ['punctuation.definition.bold.markdown', 'punctuation.definition.italic.markdown', 'punctuation.definition.raw.markdown', 'punctuation.definition.markdown', 'punctuation.definition.list.begin.markdown', 'punctuation.definition.quote.begin.markdown', 'punctuation.definition.strikethrough.markdown', 'punctuation.definition.table.markdown']) {
+  assert.ok(punctuation.scope.includes(scope));
+}
+assert.equal(punctuation.settings.foreground, '#ff007f');
 assert.deepEqual(markup('Markup headings'), { foreground: '#a7ec21', fontStyle: 'bold italic' });
+assert.deepEqual(markup('Markup emphasis'), { fontStyle: 'bold' });
+assert.deepEqual(markup('Markup italics'), { fontStyle: 'italic' });
 assert.deepEqual(markup('Markup link text'), { foreground: '#52e3f6', fontStyle: 'underline' });
+for (const scope of ['punctuation.definition.link.title.begin.markdown', 'punctuation.definition.link.title.end.markdown']) {
+  assert.ok(theme.tokenColors.find(rule => rule.name === 'Markup link text').scope.includes(scope));
+}
+for (const scope of ['punctuation.definition.link.description.begin.markdown', 'punctuation.definition.link.description.end.markdown']) {
+  assert.ok(theme.tokenColors.find(rule => rule.name === 'Markup link text').scope.includes(scope));
+}
+assert.deepEqual(markup('Markup reference labels'), { foreground: '#ff007f' });
 assert.deepEqual(markup('Markup tag names'), { foreground: '#ff007f', fontStyle: 'bold' });
 assert.deepEqual(markup('Markup entities'), { foreground: '#bed6ff' });
 assert.deepEqual(markup('YAML anchors and aliases'), { foreground: '#bed6ff' });

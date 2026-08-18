@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.2.0
 
-- Markdown, HTML, XML, YAML and shell scripts now carry explicit colors, matching the IntelliJ scheme. Headings are green and bold italic, link text keeps the type color and destinations the parameter color, tag names read as keywords with neutral brackets, attribute names are green, entity references and YAML anchors are pale blue, and here-document delimiters are orange.
+- Markdown, HTML, XML, YAML and shell scripts now carry explicit colors across the editor ports. Markdown headings are green and bold italic; formatting, list, quote, code and table markers are pink; link text is cyan, destinations are parameter blue, and reference labels are pink. Tag names read as keywords with neutral brackets, attribute names are green, entity references and YAML anchors are pale blue, and here-document delimiters are orange.
 
 ## 1.1.0
 

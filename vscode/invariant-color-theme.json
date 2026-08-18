@@ -342,6 +342,14 @@
       "scope": [
         "keyword.operator",
         "punctuation.accessor",
+        "punctuation.definition.bold.markdown",
+        "punctuation.definition.italic.markdown",
+        "punctuation.definition.list.begin.markdown",
+        "punctuation.definition.markdown",
+        "punctuation.definition.quote.begin.markdown",
+        "punctuation.definition.raw.markdown",
+        "punctuation.definition.strikethrough.markdown",
+        "punctuation.definition.table.markdown",
         "punctuation.separator",
         "punctuation.terminator"
       ],
@@ -473,12 +481,31 @@
     {
       "name": "Markup link text",
       "scope": [
+        "punctuation.definition.link.description.begin.markdown",
+        "punctuation.definition.link.description.end.markdown",
+        "punctuation.definition.link.title.begin.markdown",
+        "punctuation.definition.link.title.end.markdown",
         "string.other.link.title.markdown",
         "string.other.link.description.markdown"
       ],
       "settings": {
         "foreground": "#52e3f6",
         "fontStyle": "underline"
+      }
+    },
+    {
+      "name": "Markup reference labels",
+      "scope": [
+        "meta.link.reference.markdown punctuation.definition.link.title.begin.markdown",
+        "meta.link.reference.markdown punctuation.definition.link.title.end.markdown",
+        "meta.link.reference.markdown string.other.link.title.markdown",
+        "constant.other.reference.link.markdown",
+        "punctuation.definition.constant.markdown",
+        "punctuation.definition.constant.begin.markdown",
+        "punctuation.definition.constant.end.markdown"
+      ],
+      "settings": {
+        "foreground": "#ff007f"
       }
     },
     {

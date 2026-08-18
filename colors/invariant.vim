@@ -58,10 +58,38 @@ highlight SM2Signature guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2Static    guifg=NONE    guibg=NONE gui=italic ctermfg=NONE ctermbg=NONE cterm=italic
 highlight SM2Builtin   guifg=#bed6ff guibg=NONE ctermfg=153 ctermbg=NONE
 highlight SM2TypeParam guifg=#fd971f guibg=NONE gui=bold ctermfg=208 ctermbg=NONE cterm=bold
+highlight SM2Bold      guifg=NONE    guibg=NONE gui=bold ctermfg=NONE ctermbg=NONE cterm=bold
 highlight SM2Heading   guifg=#a7ec21 guibg=NONE gui=bold,italic ctermfg=154 ctermbg=NONE cterm=bold,italic
 highlight SM2LinkText  guifg=#52e3f6 guibg=NONE gui=underline ctermfg=81 ctermbg=NONE cterm=underline
 highlight SM2LinkUrl   guifg=#79abff guibg=NONE gui=underline ctermfg=111 ctermbg=NONE cterm=underline
 highlight! link pythonClassVar Statement
+
+highlight! link markdownBold SM2Bold
+highlight! link markdownItalic SM2Static
+highlight! link markdownBoldDelimiter Statement
+highlight! link markdownItalicDelimiter Statement
+highlight! link markdownBoldItalicDelimiter Statement
+highlight! link markdownStrikeDelimiter Statement
+highlight! link markdownCodeDelimiter Statement
+highlight! link markdownListMarker Statement
+highlight! link markdownOrderedListMarker Statement
+highlight! link markdownBlockquote Statement
+highlight! link markdownRule Statement
+highlight! link markdownH1 SM2Heading
+highlight! link markdownH2 SM2Heading
+highlight! link markdownH3 SM2Heading
+highlight! link markdownH4 SM2Heading
+highlight! link markdownH5 SM2Heading
+highlight! link markdownH6 SM2Heading
+highlight! link markdownHeadingDelimiter SM2Heading
+highlight! link markdownLinkText SM2LinkText
+highlight! link markdownLinkTextDelimiter SM2LinkText
+highlight! link markdownUrl SM2LinkUrl
+highlight! link markdownLinkDelimiter Identifier
+highlight! link markdownIdDeclaration Statement
+highlight! link markdownId Statement
+highlight! link markdownFootnote Statement
+highlight! link markdownFootnoteDefinition Statement
 
 if has('nvim')
   highlight! link @variable Identifier
@@ -89,8 +117,12 @@ if has('nvim')
   " Markup mirrors the IntelliJ scheme: headings carry weight on the function green,
   " links keep the type and parameter colours, tags read as keywords.
   highlight! link @markup.heading SM2Heading
-  highlight! link @markup.strong Statement
+  highlight! link @markup.strong SM2Bold
   highlight! link @markup.italic SM2Static
+  highlight! link @markup.list Statement
+  highlight! link @conceal.markdown_inline Statement
+  highlight! link @punctuation.special.markdown Statement
+  highlight! link @markup.link Identifier
   highlight! link @markup.link.label SM2LinkText
   highlight! link @markup.link.url SM2LinkUrl
   highlight! link @tag Statement

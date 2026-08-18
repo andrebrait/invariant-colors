@@ -10,13 +10,11 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Corrects colors that never reached the editor, and adds Markdown styling.</p>
+    <p>Adds explicit markup-language colors across the editor ports.</p>
     <ul>
-      <li>Class references, reserved names, Python <code>self</code> and <code>cls</code>, and Kotlin operator and dynamic-call punctuation now render their intended colors. They previously fell back to whichever color the IDE declares for them.</li>
-      <li>Type parameters use a bold orange rather than a muted rose.</li>
-      <li>Markdown emphasis and headings carry structure through weight, on the identifier foreground.</li>
-      <li>Python byte strings follow the ordinary string color.</li>
-      <li>Python special names are green where they are defined and neutral where they are read, matching the other editors.</li>
+      <li>Markdown headings are green and bold italic; link text is cyan, destinations are parameter blue, and reference labels are pink.</li>
+      <li>HTML and XML tag names read as keywords, attribute names are green, custom tags are orange, and entity references are pale blue.</li>
+      <li>YAML anchors and aliases are pale blue, and shell here-document delimiters are bold orange.</li>
     </ul>
   ]]></change-notes>
 
