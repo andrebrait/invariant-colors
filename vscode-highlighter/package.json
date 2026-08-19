@@ -1,0 +1,96 @@
+{
+  "name": "invariant-colors-highlighter",
+  "displayName": "Invariant Highlighter",
+  "description": "Incremental semantic highlighting that complements Invariant and existing language services.",
+  "version": "0.1.0",
+  "publisher": "andrebrait",
+  "license": "EPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrebrait/invariant-colors.git"
+  },
+  "homepage": "https://github.com/andrebrait/invariant-colors#readme",
+  "bugs": {
+    "url": "https://github.com/andrebrait/invariant-colors/issues"
+  },
+  "engines": {
+    "vscode": "^1.133.0"
+  },
+  "activationEvents": [
+    "onLanguage:php",
+    "onLanguage:python",
+    "onLanguage:java",
+    "onLanguage:shellscript"
+  ],
+  "main": "./extension.js",
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "semantic",
+    "highlighting",
+    "tree-sitter",
+    "php",
+    "python",
+    "java",
+    "shell"
+  ],
+  "galleryBanner": {
+    "color": "#191a1c",
+    "theme": "dark"
+  },
+  "icon": "images/icon.png",
+  "files": [
+    "extension.js",
+    "language-index.js",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "images/icon.png",
+    "node_modules/@vscode/tree-sitter-wasm/package.json",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter.js",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter.wasm",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter-php.wasm",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter-python.wasm",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter-java.wasm",
+    "node_modules/@vscode/tree-sitter-wasm/wasm/tree-sitter-bash.wasm",
+    "node_modules/@vscode/tree-sitter-wasm/LICENSE"
+  ],
+  "scripts": {
+    "test": "node prototype.js",
+    "package": "npx --yes @vscode/vsce@3.9.2 package --githubBranch master"
+  },
+  "contributes": {
+    "configuration": {
+      "title": "Invariant Highlighter",
+      "properties": {
+        "invariantHighlighter.languages": {
+          "type": "array",
+          "description": "Languages enhanced by Invariant Highlighter. Use an empty list to disable all highlighting.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "php",
+              "python",
+              "java",
+              "shellscript"
+            ]
+          },
+          "default": [
+            "php",
+            "python",
+            "java",
+            "shellscript"
+          ],
+          "uniqueItems": true,
+          "scope": "window"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@vscode/tree-sitter-wasm": "0.3.1"
+  }
+}
