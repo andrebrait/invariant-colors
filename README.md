@@ -23,6 +23,14 @@ Invariant grew from an Eclipse theme I started using in 2014 and is primarily ma
 
 The scheme uses color to identify what a symbol is and formatting to show how it is being used. Common code stays relatively quiet, while types, parameters, methods, and reserved words remain easy to find.
 
+> **Visual Studio Code:**
+> [Invariant Complete](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-complete)
+> installs both the
+> [Invariant theme](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors)
+> and
+> [Invariant Highlighter](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-highlighter).
+> Each component remains independently manageable.
+
 ![Java example using Invariant](docs/images/intellij-java.png)
 
 ## Semantic colors
