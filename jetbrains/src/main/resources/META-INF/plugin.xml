@@ -10,11 +10,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Adds explicit markup-language colors across the editor ports.</p>
+    <p>Aligns the JetBrains package with Invariant 1.3.0.</p>
     <ul>
-      <li>Markdown headings are green and bold italic; link text is cyan, destinations are parameter blue, and reference labels are pink.</li>
-      <li>HTML and XML tag names read as keywords, attribute names are green, custom tags are orange, and entity references are pale blue.</li>
-      <li>YAML anchors and aliases are pale blue, and shell here-document delimiters are bold orange.</li>
+      <li>The new semantic-highlighting changes and companion extensions in this release apply to Visual Studio Code.</li>
+      <li>The JetBrains color scheme is unchanged from Invariant 1.2.0.</li>
     </ul>
   ]]></change-notes>
 

@@ -151,7 +151,7 @@ npm run package
 Install the generated VSIX with:
 
 ```sh
-code --install-extension invariant-colors-highlighter-0.1.0.vsix --force
+code --install-extension invariant-colors-highlighter-1.0.0.vsix --force
 ```
 
 ## License

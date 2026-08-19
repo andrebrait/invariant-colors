@@ -2,7 +2,7 @@
   "name": "invariant-colors-highlighter",
   "displayName": "Invariant Highlighter",
   "description": "Incremental semantic highlighting that complements Invariant and existing language services.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "andrebrait",
   "license": "EPL-2.0",
   "repository": {

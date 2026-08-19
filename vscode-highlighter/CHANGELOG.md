@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0
+## 1.0.0
 
 - Add incremental PHP, Python, Java, and Shell Script adapters.
 - Add PHP parameter identity highlighting.

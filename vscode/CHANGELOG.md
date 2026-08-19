@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+- Function-call parentheses and brackets now remain neutral instead of inheriting the function color in PHP, Python, Java, and other grammars that use the broad `meta.function-call` scope.
+- Semantic tokens with the standard `modification` modifier now gain an underline without changing their foreground color.
+- Invariant Highlighter and Invariant Complete are now available as optional companion extensions.
+
 ## 1.2.0
 
 - Markdown, HTML, XML, YAML and shell scripts now carry explicit colors across the editor ports. Markdown headings are green and bold italic; formatting, list, quote, code and table markers are pink; link text is cyan, destinations are parameter blue, and reference labels are pink. Tag names read as keywords with neutral brackets, attribute names are green, entity references and YAML anchors are pale blue, and here-document delimiters are orange.

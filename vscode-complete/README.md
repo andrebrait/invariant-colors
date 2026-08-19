@@ -63,7 +63,7 @@ npm run package
 Install the generated VSIX with:
 
 ```sh
-code --install-extension invariant-colors-complete-0.1.0.vsix --force
+code --install-extension invariant-colors-complete-1.0.0.vsix --force
 ```
 
 ## License

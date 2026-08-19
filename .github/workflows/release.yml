@@ -11,13 +11,10 @@ concurrency:
   group: publish-${{ github.event.release.tag_name }}
   cancel-in-progress: false
 
-env:
-  PLUGIN_VERSION: ${{ github.event.release.tag_name }}
-
 jobs:
   vscode:
     name: Visual Studio Marketplace
-    if: ${{ !startsWith(github.event.release.tag_name, 'highlighter-v') && !startsWith(github.event.release.tag_name, 'complete-v') }}
+    if: ${{ startsWith(github.event.release.tag_name, 'invariant-v') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,6 +25,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
+      - run: echo "PLUGIN_VERSION=${GITHUB_REF_NAME#invariant-v}" >> "$GITHUB_ENV"
       - name: Check release version
         run: test "$(node -p "require('./vscode/package.json').version")" = "$PLUGIN_VERSION"
       - run: npm test --prefix vscode
@@ -49,7 +47,7 @@ jobs:
 
   jetbrains:
     name: JetBrains Marketplace
-    if: ${{ !startsWith(github.event.release.tag_name, 'highlighter-v') && !startsWith(github.event.release.tag_name, 'complete-v') }}
+    if: ${{ startsWith(github.event.release.tag_name, 'invariant-v') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -63,6 +61,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+      - run: echo "PLUGIN_VERSION=${GITHUB_REF_NAME#invariant-v}" >> "$GITHUB_ENV"
       # Restores the Gradle cache JetBrains CI writes on master, so the IntelliJ
       # Platform is not downloaded again here. Left read-only on purpose: this job
       # runs on a tag, and a cache written under one tag is unreadable from every

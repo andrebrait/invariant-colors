@@ -2,7 +2,7 @@
   "name": "invariant-colors-complete",
   "displayName": "Invariant Complete",
   "description": "Install the Invariant color theme and semantic highlighter together.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "andrebrait",
   "license": "EPL-2.0",
   "repository": {
