@@ -24,10 +24,14 @@ for (const popup of ['editorWidget.background', 'editorSuggestWidget.background'
 assert.equal(theme.semanticTokenColors.method, '#a7ec21');
 assert.equal(theme.semanticTokenColors['method.abstract'], '#bed6ff');
 assert.notEqual(theme.semanticTokenColors.method, theme.semanticTokenColors['method.abstract']);
+const functionScopes = theme.tokenColors.find(rule => rule.name === 'Functions and methods').scope;
+assert.ok(!functionScopes.includes('meta.function-call'));
+assert.ok(functionScopes.includes('meta.function-call.generic.python'));
 assert.equal(theme.semanticTokenColors.variable, theme.semanticTokenColors.property);
 assert.equal(theme.semanticTokenColors.parameter, '#79abff');
 assert.deepEqual(theme.semanticTokenColors.selfParameter, { foreground: '#ff007f', bold: true });
 assert.deepEqual(theme.semanticTokenColors.clsParameter, { foreground: '#ff007f', bold: true });
+assert.deepEqual(theme.semanticTokenColors['*.modification'], { underline: true });
 assert.deepEqual(theme.semanticTokenColors['*.static'], { italic: true });
 assert.equal(theme.tokenColors.find(rule => rule.name === 'Comments').settings.foreground, '#ffffff');
 assert.deepEqual(theme.tokenColors.find(rule => rule.name === 'Python self and cls').settings, {

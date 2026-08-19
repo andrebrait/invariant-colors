@@ -396,7 +396,7 @@
       "name": "Functions and methods",
       "scope": [
         "entity.name.function",
-        "meta.function-call",
+        "meta.function-call.generic.python",
         "meta.function-call entity.name.type",
         "meta.function-call entity.name.class",
         "support.function"
@@ -638,6 +638,9 @@
     },
     "*.readonly": {
       "bold": true
+    },
+    "*.modification": {
+      "underline": true
     },
     "*.static": {
       "italic": true
