@@ -183,6 +183,8 @@ gradle -p jetbrains buildPlugin verifyPlugin
 
 ## Releasing
 
+Name every GitHub Release `YYYY-MM-DD - Product X.Y.Z`, using its publication date in ISO format. This keeps releases chronologically ordered in clients that sort them alphabetically.
+
 Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). Use an `invariant-vX.Y.Z` tag whose version matches [`vscode/package.json`](vscode/package.json). The workflow attaches both installable archives to the GitHub Release. Stable releases also publish the VS Code extension and JetBrains plugin; prereleases remain downloadable from GitHub only. Vim and Neovim package managers use the same Git tag directly.
 
 Invariant Highlighter and Invariant Complete release independently through their [Highlighter](.github/workflows/release-vscode-highlighter.yml) and [Complete](.github/workflows/release-vscode-complete.yml) workflows. Use `highlighter-vX.Y.Z` and `complete-vX.Y.Z` tags matching their respective `package.json` versions. Complete references extension IDs rather than versions, so it only needs another release when its membership or metadata changes.
