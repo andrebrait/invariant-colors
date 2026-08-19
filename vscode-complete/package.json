@@ -1,0 +1,47 @@
+{
+  "name": "invariant-colors-complete",
+  "displayName": "Invariant Complete",
+  "description": "Install the Invariant color theme and semantic highlighter together.",
+  "version": "0.1.0",
+  "publisher": "andrebrait",
+  "license": "EPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrebrait/invariant-colors.git"
+  },
+  "homepage": "https://github.com/andrebrait/invariant-colors#readme",
+  "bugs": {
+    "url": "https://github.com/andrebrait/invariant-colors/issues"
+  },
+  "engines": {
+    "vscode": "^1.133.0"
+  },
+  "categories": [
+    "Extension Packs"
+  ],
+  "keywords": [
+    "invariant",
+    "theme",
+    "semantic",
+    "highlighting",
+    "extension pack"
+  ],
+  "galleryBanner": {
+    "color": "#191a1c",
+    "theme": "dark"
+  },
+  "icon": "images/icon.png",
+  "extensionPack": [
+    "andrebrait.invariant-colors",
+    "andrebrait.invariant-colors-highlighter"
+  ],
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "images/icon.png"
+  ],
+  "scripts": {
+    "package": "npx --yes @vscode/vsce@3.9.2 package --githubBranch master"
+  }
+}
