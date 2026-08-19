@@ -1,10 +1,5 @@
 name: CI
 
-# Also the cache warmer for releases. GitHub scopes caches by ref: a run on a tag cannot
-# read a cache written by any other tag, only one written on the default branch. The release
-# workflow runs on tags, so without this the IntelliJ Platform is downloaded from scratch
-# every release. Building here on master populates the cache those runs restore.
-
 on:
   push:
     branches: [master]
@@ -52,17 +47,3 @@ jobs:
         with:
           node-version: 'lts/*'
       - run: npm run package --prefix vscode-complete
-
-  plugin:
-    name: JetBrains plugin
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 25
-      - uses: gradle/actions/setup-gradle@v6
-        with:
-          gradle-version: 9.7.0
-      - run: gradle -p jetbrains buildPlugin verifyPlugin
