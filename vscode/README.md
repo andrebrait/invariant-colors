@@ -52,6 +52,11 @@ Install **Invariant** from the Extensions Marketplace and select it from **Prefe
 ext install andrebrait.invariant-colors
 ```
 
+For Tree-sitter-backed PHP parameter identity and reassigned-symbol underlining, install
+the optional [Invariant Highlighter](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-highlighter).
+Install [Invariant Complete](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-complete)
+to get both independently manageable extensions together.
+
 See the [project README](https://github.com/andrebrait/invariant-colors#readme) for the complete palette, editor differences, Vim and Neovim installation, and provenance. Problems and suggestions are tracked in [GitHub Issues](https://github.com/andrebrait/invariant-colors/issues).
 
 ## License

@@ -17,6 +17,7 @@ env:
 jobs:
   vscode:
     name: Visual Studio Marketplace
+    if: ${{ !startsWith(github.event.release.tag_name, 'highlighter-v') && !startsWith(github.event.release.tag_name, 'complete-v') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -48,6 +49,7 @@ jobs:
 
   jetbrains:
     name: JetBrains Marketplace
+    if: ${{ !startsWith(github.event.release.tag_name, 'highlighter-v') && !startsWith(github.event.release.tag_name, 'complete-v') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

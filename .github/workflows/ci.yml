@@ -29,6 +29,30 @@ jobs:
           node-version: 'lts/*'
       - run: npm test --prefix vscode
 
+  vscode-highlighter:
+    name: VS Code highlighter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 'lts/*'
+          cache: npm
+          cache-dependency-path: vscode-highlighter/package-lock.json
+      - run: npm ci --prefix vscode-highlighter
+      - run: npm test --prefix vscode-highlighter
+      - run: npm run package --prefix vscode-highlighter
+
+  vscode-complete:
+    name: VS Code complete pack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 'lts/*'
+      - run: npm run package --prefix vscode-complete
+
   plugin:
     name: JetBrains plugin
     runs-on: ubuntu-latest

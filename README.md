@@ -113,6 +113,17 @@ Install **Invariant** from the Plugins Marketplace, or import [`jetbrains/invari
 
 Install **Invariant** from the Extensions Marketplace and select it from **Preferences: Color Theme**. To test the source locally, open the [`vscode`](vscode) directory in Visual Studio Code and press `F5`.
 
+Visual Studio Code users can choose among three independently manageable extensions:
+
+| Extension | Purpose |
+| --- | --- |
+| [Invariant](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors) | Passive color theme only |
+| [Invariant Highlighter](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-highlighter) | Incremental parameter and reassignment enhancements |
+| [Invariant Complete](https://marketplace.visualstudio.com/items?itemName=andrebrait.invariant-colors-complete) | Extension pack containing both |
+
+Invariant Highlighter is optional. Its `invariantHighlighter.languages` setting can
+disable individual language adapters or all highlighting.
+
 From the Command Palette, run:
 
 ```text
