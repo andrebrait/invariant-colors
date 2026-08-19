@@ -71,7 +71,8 @@ jobs:
         with:
           gradle-version: 9.7.0
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: gradle -p jetbrains buildPlugin verifyPlugin --configuration-cache
+      - run: gradle buildPlugin verifyPlugin --configuration-cache
+        working-directory: jetbrains
       - name: Attach JetBrains plugin
         run: gh release upload "$GITHUB_REF_NAME" "jetbrains/build/distributions/invariant-$PLUGIN_VERSION.zip" --clobber
         env:

@@ -38,4 +38,5 @@ jobs:
         with:
           gradle-version: 9.7.0
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: gradle -p jetbrains buildPlugin verifyPlugin --configuration-cache
+      - run: gradle buildPlugin verifyPlugin --configuration-cache
+        working-directory: jetbrains
