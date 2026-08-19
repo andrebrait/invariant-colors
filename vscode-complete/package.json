@@ -39,7 +39,9 @@
     "README.md",
     "CHANGELOG.md",
     "LICENSE",
-    "images/icon.png"
+    "images/icon.png",
+    "images/equation.png",
+    "images/equation.svg"
   ],
   "scripts": {
     "package": "npx --yes @vscode/vsce@3.9.2 package --githubBranch master"
