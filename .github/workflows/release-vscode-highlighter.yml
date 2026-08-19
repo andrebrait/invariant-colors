@@ -1,4 +1,4 @@
-name: Publish VS Code companion
+name: Publish Invariant Highlighter
 
 on:
   release:
@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: publish-${{ github.event.release.tag_name }}
+  group: publish-highlighter-${{ github.event.release.tag_name }}
   cancel-in-progress: false
 
 jobs:
@@ -44,36 +44,5 @@ jobs:
       - name: Publish to Open VSX
         if: ${{ !github.event.release.prerelease }}
         run: npx --yes ovsx@1.1.1 publish "vscode-highlighter/invariant-colors-highlighter-$PLUGIN_VERSION.vsix"
-        env:
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
-
-  complete:
-    name: Invariant Complete
-    if: ${{ startsWith(github.event.release.tag_name, 'complete-v') }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.release.tag_name }}
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 'lts/*'
-      - run: echo "PLUGIN_VERSION=${GITHUB_REF_NAME#complete-v}" >> "$GITHUB_ENV"
-      - run: test "$(node -p "require('./vscode-complete/package.json').version")" = "$PLUGIN_VERSION"
-      - run: npm run package --prefix vscode-complete
-      - name: Attach VSIX
-        run: gh release upload "$GITHUB_REF_NAME" "vscode-complete/invariant-colors-complete-$PLUGIN_VERSION.vsix" --clobber
-        env:
-          GH_TOKEN: ${{ github.token }}
-      - name: Publish to Visual Studio Marketplace
-        if: ${{ !github.event.release.prerelease }}
-        run: npx --yes @vscode/vsce@3.9.2 publish --packagePath "vscode-complete/invariant-colors-complete-$PLUGIN_VERSION.vsix"
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      - name: Publish to Open VSX
-        if: ${{ !github.event.release.prerelease }}
-        run: npx --yes ovsx@1.1.1 publish "vscode-complete/invariant-colors-complete-$PLUGIN_VERSION.vsix"
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}

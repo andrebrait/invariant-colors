@@ -177,7 +177,9 @@ gradle -p jetbrains buildPlugin verifyPlugin
 
 Publishing a GitHub Release runs [the release workflow](.github/workflows/release.yml). The tag must match the version in [`vscode/package.json`](vscode/package.json), using `1.0.0` rather than `v1.0.0`. The workflow attaches both installable archives to the GitHub Release. Stable releases also publish the VS Code extension and JetBrains plugin; prereleases remain downloadable from GitHub only. Vim and Neovim package managers use the same Git tag directly.
 
-Before the first stable release, create the JetBrains Marketplace plugin and add the `INTELLIJ_PUBLISH_TOKEN` Actions secret. Add the Visual Studio Marketplace token as the `VSCE_PAT` Actions secret. Neither extension requires a signing certificate.
+Invariant Highlighter and Invariant Complete release independently through their [Highlighter](.github/workflows/release-vscode-highlighter.yml) and [Complete](.github/workflows/release-vscode-complete.yml) workflows. Use `highlighter-vX.Y.Z` and `complete-vX.Y.Z` tags matching their respective `package.json` versions. Complete references extension IDs rather than versions, so it only needs another release when its membership or metadata changes.
+
+Before the first stable release, create the JetBrains Marketplace plugin and add the `INTELLIJ_PUBLISH_TOKEN` Actions secret. Add the Visual Studio Marketplace and Open VSX tokens as the `VSCE_PAT` and `OVSX_PAT` Actions secrets. These extensions do not require signing certificates.
 
 ## Provenance
 
