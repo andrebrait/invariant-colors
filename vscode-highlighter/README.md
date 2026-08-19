@@ -45,10 +45,13 @@ Every occurrence of a PHP parameter inside its function is published as the stan
 semantic token type `parameter`, not only the declaration. The active theme chooses
 the color; Invariant uses blue and enables semantic highlighting by default.
 
-![PHP parameter references consistently highlighted by Invariant Highlighter](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-parameters.png)
+![The same PHP parameter example alternating between Highlighter off and on](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-parameters.gif)
 
-The `$migration` and `$max` declarations and references share the same parameter
-color throughout the function.
+Original PNGs: [without Highlighter](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-parameters-without.png)
+and [with Highlighter](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-parameters-with.png).
+
+With Highlighter, every `$value`, `$minimum`, and `$maximum` reference shares
+the parameter color while the ordinary local `$result` remains neutral.
 
 ### Modified-symbol highlighting
 
@@ -56,12 +59,14 @@ When a parameter is assigned or a variable is assigned again, every occurrence
 of that symbol in its scope is underlined. This makes mutation visible at a
 glance while preserving the symbol's existing color.
 
-![Modified PHP parameters and variables underlined in VS Code](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-modified.png)
+![The same PHP modification example alternating between Highlighter off and on](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-modified.gif)
+
+Original PNGs: [without Highlighter](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-modified-without.png)
+and [with Highlighter](https://raw.githubusercontent.com/andrebrait/invariant-colors/master/docs/images/vscode-highlighter-modified-with.png).
 
 Every `$max` and `$cfg` occurrence is underlined, including occurrences before
-the assignment that made the symbol count as modified. This image is a live VS
-Code editor capture because re-tokenizing screenshot tools do not preserve editor
-decorations.
+the assignment that made the symbol count as modified. Parameter identity and
+modified-symbol formatting remain visually independent.
 
 ### Incremental updates
 
