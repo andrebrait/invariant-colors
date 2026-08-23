@@ -167,9 +167,11 @@ JetBrains IDEs can distinguish captures and whether a Java method has an impleme
 
 ### Platform backgrounds
 
-The IntelliJ scheme inherits from Islands Dark. IntelliJ inherits a text-attribute entry as a whole, so the scheme cannot keep its warm-neutral default foreground while inheriting only the editor background. The `TEXT` background therefore copies Islands Dark 2026.2's `#191a1c` value.
+The IntelliJ scheme inherits from Darcula. A bundled color scheme may only name a parent the platform is certain to have registered, and Darcula is one of the two schemes `DefaultColorSchemesManager` always provides. Islands Dark, which this scheme named until 1.3.1, is contributed by a plugin and is absent unless the Islands UI is active; naming it made the IDE discard the whole scheme on load. Islands Dark is itself Darcula plus overrides, so every override it used to supply is now written out in the `.icls` file and the rendering is unchanged.
 
-The console, documentation popup, completion popup, and gutter backgrounds remain inherited. Their current Islands Dark values are recorded in comments in the `.icls` file. The Vim port uses those same fixed surfaces.
+IntelliJ inherits a text-attribute entry as a whole, so the scheme cannot keep its warm-neutral default foreground while inheriting only the editor background. The `TEXT` background therefore copies Islands Dark 2026.2's `#191a1c` value.
+
+The console, documentation popup, completion popup, and gutter backgrounds are set explicitly to the Islands Dark 2026.2 values they previously inherited. The Vim port uses those same fixed surfaces.
 
 The Visual Studio Code port instead uses the current VS Code Dark surfaces: `#121314` for the editor and gutter, `#191a1b` for the terminal and peek views, and `#202122` for documentation and completion widgets.
 

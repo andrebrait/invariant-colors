@@ -51,15 +51,30 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
 
 {
   const scheme = intellij;
-  assert.match(scheme, /parent_scheme="Islands Dark"/);
+  // A bundledColorScheme may only name a parent that is certain to be registered when the
+  // IDE loads it. DefaultColorSchemesManager ships exactly Default and Darcula; every other
+  // scheme is contributed by a plugin and can be missing, and AbstractColorsScheme.resolveParent
+  // then throws InvalidDataException and the IDE drops the whole scheme. "Islands Dark" is such
+  // a scheme and is absent on a non-Islands UI, which kept this plugin from ever appearing.
+  // Islands Dark is itself Darcula plus overrides, so those overrides are spelled out here.
+  assert.match(scheme, /parent_scheme="Darcula"/);
+  assert.doesNotMatch(scheme, /parent_scheme="Islands Dark"/);
   assert.match(scheme, /name="TEXT"[\s\S]*?name="FOREGROUND" value="cfbfad"[\s\S]*?name="BACKGROUND" value="191a1c"/);
-  for (const inheritedSurface of ['CONSOLE_BACKGROUND_KEY', 'DOCUMENTATION_COLOR', 'GUTTER_BACKGROUND', 'LOOKUP_COLOR']) {
-    assert.doesNotMatch(scheme, new RegExp(`name="${inheritedSurface}"`));
+  for (const [surface, colour] of [
+    ['CONSOLE_BACKGROUND_KEY', '191a1c'],
+    ['DOCUMENTATION_COLOR', '27282b'],
+    ['LOOKUP_COLOR', '27282b']
+  ]) {
+    assert.match(scheme, new RegExp(`<option name="${surface}" value="${colour}" />`));
   }
+  // An empty value is how Islands Dark makes the gutter follow the editor background.
+  assert.match(scheme, /<option name="EDITOR_GUTTER_BACKGROUND" value="" \/>/);
   assert.match(scheme, /Record names and components intentionally inherit class and final-instance-field attributes/);
   assert.doesNotMatch(scheme, /<option name="RECORD_(?:NAME|COMPONENT)_ATTRIBUTES"/);
   assert.match(scheme, /name="ANNOTATION_ATTRIBUTE_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/);
-  assert.doesNotMatch(scheme, /name="ANNOTATION_NAME_ATTRIBUTES"/);
+  // Islands Dark reset this key to its fallback rather than leaving it at the Darcula value.
+  // Under a Darcula parent the reset has to be spelled out to keep the same rendering.
+  assert.match(scheme, /name="ANNOTATION_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/);
   // Markdown emphasis carries structure through weight; headings use function green.
   assert.doesNotMatch(scheme, /name="MARKDOWN_(?:LIST_ITEM|ORDERED_LIST|UNORDERED_LIST)"/);
   assert.match(scheme, /name="MARKDOWN_BOLD">\s*<value>\s*<option name="FONT_TYPE" value="1"\s*\/>/);
@@ -153,6 +168,9 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
       new RegExp(`name="${key}">\\s*<value>\\s*<option name="FOREGROUND" value="${value}"\\s*/>${font}\\s*</value>`)
     );
     assert.doesNotMatch(scheme, new RegExp(`name="${key}" baseAttributes=`));
+  }
+  for (const inlined of ['KOTLIN_MUTABLE_VARIABLE', 'KOTLIN_TYPE_PARAMETER', 'KOTLIN_LABEL', 'JS.REGEXP', 'CSS.COLOR']) {
+    assert.match(scheme, new RegExp(`name="${inlined}"`));
   }
   assert.match(scheme, /name="KOTLIN_ARROW">\s*<value>\s*<option name="FOREGROUND" value="cfbfad"\s*\/>\s*<\/value>\s*<\/option>/);
   assert.match(scheme, /name="KOTLIN_FUNCTION_LITERAL_BRACES_AND_ARROW">\s*<value\s*\/>\s*<\/option>/);

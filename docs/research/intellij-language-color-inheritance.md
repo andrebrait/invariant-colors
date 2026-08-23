@@ -40,7 +40,7 @@ Three states, which are easy to confuse:
 | Explicit `<value>` block | sets the colour outright |
 
 The middle form is why `PY.STRING.B` needs an entry despite falling back to `DEFAULT_STRING`
-anyway: Darcula colours byte strings separately, we inherit that through Islands Dark, and
+anyway: Darcula colours byte strings separately, we inherit that from our Darcula parent, and
 only an entry clears it.
 
 This invalidates the obvious strategy of pointing a key at whichever semantic base we want.
