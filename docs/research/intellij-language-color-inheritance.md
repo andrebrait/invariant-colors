@@ -93,6 +93,10 @@ Decision: `DEFAULT_FUNCTION_CALL`, `DEFAULT_FUNCTION_DECLARATION`, and `DEFAULT_
 
 `DEFAULT_FUNCTION_CALL` keeps an explicit green foreground because IntelliJ's built-in fallback is `DEFAULT_IDENTIFIER`; relying on a scheme-level `baseAttributes` replacement did not survive import as the intended relationship.
 
+Java's constructor call and declaration keys already fall back to `DEFAULT_FUNCTION_CALL` and
+`DEFAULT_FUNCTION_DECLARATION`. They are intentionally omitted, so both use concrete function
+green `#a7ec21`.
+
 Decision: `DEFAULT_GLOBAL_VARIABLE` uses ordinary-variable styling: warm neutral `#cfbfad`, plain. Java has no highlighting key which inherits this generic concept.
 
 Decision: `DEFAULT_CONSTANT` retains its existing warm-neutral `#cfbfad`, italic styling. Java has no highlighting key which inherits this generic concept.
@@ -101,7 +105,17 @@ Kotlin's combined function-literal braces-and-arrow key is intentionally transpa
 
 ## Existing language-specific entries
 
-Keys whose declared fallback already carries the intended colour are left to inherit it: generic locals, globals, instance fields and labels, Java's static-method and annotation-attribute aliases, and Python type annotations. Kotlin operator punctuation, dynamic calls and callable variables, Python `self` and type parameters, and generic class references and predefined symbols are pinned to explicit values instead, because their declared fallbacks carry a different colour or none at all. Empty Markdown list entries and Java's redundant annotation-name alias were removed because omission produces the same effective style. Markdown emphasis and headings were later given explicit styling: they carry structure through weight and keep the identifier foreground, so prose never spends a color the code palette needs. The remaining language-specific values are intentional differences or transparent overlays: Bash command categories, CSS selector/function/property categories, Kotlin named-argument and smart-cast contexts, Python built-ins and predefined names, and regular-expression match backgrounds.
+Keys whose declared fallback already carries the intended colour are left to inherit it:
+generic locals, globals, instance fields and labels, Java constructors, Java's static-method and
+annotation-attribute aliases, and Python type annotations. Kotlin operator punctuation, dynamic
+calls and callable variables, Python `self` and type parameters, and generic class references and
+predefined symbols are pinned to explicit values instead, because their declared fallbacks carry
+a different colour or none at all. Markdown emphasis and headings carry structure through weight
+and keep the identifier foreground, so prose never spends a color the code palette needs. The
+remaining language-specific values are intentional differences or transparent overlays: Bash
+command categories, CSS selector/function/property categories, Kotlin named-argument and
+smart-cast contexts, Python built-ins and predefined names, and regular-expression match
+backgrounds.
 
 For Python, type annotations fall back to `DEFAULT_IDENTIFIER` and are left to do so, which is why a type hint reads as neutral text. Python 3.12 type parameters fall back to `DEFAULT_PARAMETER` rather than Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`, so they are pinned to the type-parameter orange explicitly. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
 

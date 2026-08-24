@@ -35,7 +35,7 @@ The scheme uses color to identify what a symbol is and formatting to show how it
 
 ## Semantic colors
 
-The same kind of symbol should keep the same foreground wherever it appears. A class does not change color when used as a constructor or a static qualifier, and a field does not become a different color merely because it is read from another expression.
+The same kind of symbol should keep the same foreground wherever it appears. A class stays cyan as a declaration, type, or static qualifier; constructor declarations and calls are green because they invoke behavior. A field does not become a different color merely because it is read from another expression.
 
 | Meaning | Style | Examples |
 | --- | --- | --- |
