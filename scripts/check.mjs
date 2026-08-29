@@ -28,11 +28,21 @@ const functionScopes = theme.tokenColors.find(rule => rule.name === 'Functions a
 assert.ok(!functionScopes.includes('meta.function-call'));
 assert.ok(functionScopes.includes('meta.function-call.generic.python'));
 assert.equal(theme.semanticTokenColors.variable, theme.semanticTokenColors.property);
+const propertyRule = theme.tokenColors.find(rule => rule.name === 'Variables and properties');
+assert.equal(propertyRule.settings.foreground, theme.semanticTokenColors.property);
+for (const scope of [
+  'support.type.property-name.json',
+  'support.type.property-name.json.comments',
+  'support.type.property-name.json.lines'
+]) {
+  assert.ok(propertyRule.scope.includes(scope));
+}
 assert.equal(theme.semanticTokenColors.parameter, '#79abff');
 assert.deepEqual(theme.semanticTokenColors.selfParameter, { foreground: '#ff007f', bold: true });
 assert.deepEqual(theme.semanticTokenColors.clsParameter, { foreground: '#ff007f', bold: true });
 assert.deepEqual(theme.semanticTokenColors['*.modification'], { underline: true });
 assert.deepEqual(theme.semanticTokenColors['*.static'], { italic: true });
+assert.ok(!Object.hasOwn(theme.semanticTokenColors, '*.readonly'));
 assert.equal(theme.tokenColors.find(rule => rule.name === 'Comments').settings.foreground, '#ffffff');
 assert.deepEqual(theme.tokenColors.find(rule => rule.name === 'Python self and cls').settings, {
   foreground: '#ff007f',
@@ -138,6 +148,9 @@ for (const pythonModule of ['namespace:python', 'module:python']) {
     ['DEFAULT_INSTANCE_METHOD', 'DEFAULT_FUNCTION_DECLARATION'],
     ['DEFAULT_LABEL', 'DEFAULT_IDENTIFIER'],
     ['DEFAULT_LOCAL_VARIABLE', 'DEFAULT_IDENTIFIER'],
+    ['JS.GLOBAL_VARIABLE', 'DEFAULT_GLOBAL_VARIABLE'],
+    ['JS.INSTANCE_MEMBER_FUNCTION', 'DEFAULT_INSTANCE_METHOD'],
+    ['JS.LOCAL_VARIABLE', 'DEFAULT_LOCAL_VARIABLE'],
     ['PY.ANNOTATION', 'DEFAULT_IDENTIFIER'],
     ['PY.STRING.B', 'DEFAULT_STRING'],
     ['STATIC_METHOD_ATTRIBUTES', 'DEFAULT_STATIC_METHOD'],

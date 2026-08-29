@@ -119,6 +119,15 @@ backgrounds.
 
 For Python, type annotations fall back to `DEFAULT_IDENTIFIER` and are left to do so, which is why a type hint reads as neutral text. Python 3.12 type parameters fall back to `DEFAULT_PARAMETER` rather than Java's `TYPE_PARAMETER_NAME_ATTRIBUTES`, so they are pinned to the type-parameter orange explicitly. The plugin's remaining syntax, function, class, parameter, local-variable, decorator, and punctuation keys already fall back to the corresponding Language Defaults.
 
+JavaScript's bundled Darcula fragment overrides `JS.LOCAL_VARIABLE`,
+`JS.GLOBAL_VARIABLE`, and `JS.INSTANCE_MEMBER_FUNCTION`. IntelliJ source declares their
+fallbacks as `DEFAULT_LOCAL_VARIABLE`, `DEFAULT_GLOBAL_VARIABLE`, and
+`DEFAULT_INSTANCE_METHOD`, respectively. Invariant resets each key with that exact declared
+`baseAttributes` value, clearing the parent override without trying to redirect inheritance.
+Locals and globals therefore render warm neutral, while resolved instance methods render green.
+When a reference cannot resolve because its library is missing, the JavaScript highlighter may
+guess a variable or member category instead; a color scheme cannot recover the missing identity.
+
 Known debt: pale blue `#bed6ff` carries two meanings. It marks signature-only methods
 (`ABSTRACT_METHOD_ATTRIBUTES`, `INHERITED_METHOD_ATTRIBUTES`) and also runtime built-ins
 (`PY.BUILTIN_NAME`, `BASH.EXTERNAL_COMMAND`, `CSS.FUNCTION`), and the Visual Studio Code and

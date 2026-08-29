@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.2
+
+- JSON, JSON with Comments, and JSON Lines property names now use the neutral variable/property color instead of type cyan, matching IntelliJ's field styling.
+- Read-only semantic tokens no longer become bold, so a local `const` keeps the same variable styling as a local `let`.
+
 ## 1.3.1
 
 - The JetBrains plugin now installs a color scheme the IDE can actually load. It named Islands Dark as its parent scheme, which is contributed by a plugin and is absent unless the Islands UI is active, so IntelliJ discarded the scheme on load and Invariant never appeared under Settings | Editor | Color Scheme. The scheme now inherits from Darcula and spells out every color and attribute it had been inheriting, leaving its appearance unchanged.

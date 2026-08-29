@@ -432,6 +432,9 @@
       "scope": [
         "variable",
         "meta.object-literal.key",
+        "support.type.property-name.json",
+        "support.type.property-name.json.comments",
+        "support.type.property-name.json.lines",
         "support.variable"
       ],
       "settings": {
@@ -634,9 +637,6 @@
     "decorator": "#ffffff",
     "macro": {
       "foreground": "#ff007f",
-      "bold": true
-    },
-    "*.readonly": {
       "bold": true
     },
     "*.modification": {

@@ -6,14 +6,14 @@
   <description><![CDATA[
     <p>Invariant is a semantic dark editor color scheme based on Monokai.</p>
     <p>Color identifies what a symbol is; formatting shows how it is being used. Common code stays relatively quiet, while types, parameters, methods, reserved names, annotations, and comments remain easy to find.</p>
-    <p>The scheme provides explicit coverage for Java, Kotlin, Python, CSS, and shell scripts, with Language Defaults for other supported languages.</p>
+    <p>The scheme provides explicit coverage for Java, Kotlin, JavaScript, Python, CSS, and shell scripts, with Language Defaults for other supported languages.</p>
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Fixes the plugin so its color scheme appears in the IDE.</p>
+    <p>Aligns JavaScript semantic colors with Invariant's cross-editor identity model.</p>
     <ul>
-      <li>Invariant named Islands Dark as its parent scheme. That scheme is contributed by a plugin and is absent unless the Islands UI is active, so the IDE discarded Invariant on load and it never appeared under Settings | Editor | Color Scheme.</li>
-      <li>The scheme now inherits from Darcula and defines every color and attribute it previously inherited, so its appearance is unchanged.</li>
+      <li>Local and global variables now use the neutral variable color instead of inherited Darcula and Islands colors.</li>
+      <li>Resolved instance methods now use function green instead of parameter-like blue.</li>
     </ul>
   ]]></change-notes>
 

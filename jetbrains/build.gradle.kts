@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.andrebrait"
-version = providers.environmentVariable("PLUGIN_VERSION").orElse("1.3.1").get()
+version = providers.environmentVariable("PLUGIN_VERSION").orElse("1.3.2").get()
 
 repositories {
     mavenCentral()

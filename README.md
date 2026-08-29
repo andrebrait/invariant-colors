@@ -60,7 +60,7 @@ Context normally adds formatting without replacing a symbol's identity color:
 - A reassigned variable or parameter gains an underline but keeps its foreground.
 - Static members are italic; instance members are not.
 - Inspection results add their underline, wave, border, or background over the existing syntax colors.
-- Read-only and other contextual distinctions may use bold or italic where the editor exposes them reliably.
+- Constancy does not change variable or field formatting.
 
 A captured Java variable is a useful boundary case. A method parameter is blue in the enclosing method, but IntelliJ presents its use inside a lambda as a neutral field-like capture. Its semantic role has changed: the generated lambda object effectively carries that value as state.
 
