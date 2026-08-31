@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.3
+
+- IntelliJ JavaScript regular-expression literals now inherit the string color while retaining more specific injected-regex syntax colors.
+- The Visual Studio Code theme is unchanged from 1.3.2.
+
 ## 1.3.2
 
 - JSON, JSON with Comments, and JSON Lines property names now use the neutral variable/property color instead of type cyan, matching IntelliJ's field styling.

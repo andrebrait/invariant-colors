@@ -816,11 +816,7 @@
         <option name="FONT_TYPE" value="1" />
       </value>
     </option>
-    <option name="JS.REGEXP">
-      <value>
-        <option name="FOREGROUND" value="42c3d4" />
-      </value>
-    </option>
+    <option name="JS.REGEXP" baseAttributes="DEFAULT_STRING" />
     <option name="JS.JSX_CLIENT_COMPONENT">
       <value>
         <option name="FOREGROUND" value="9c9cff" />

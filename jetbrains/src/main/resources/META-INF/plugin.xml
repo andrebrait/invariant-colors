@@ -10,10 +10,9 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Aligns JavaScript semantic colors with Invariant's cross-editor identity model.</p>
+    <p>Aligns JavaScript regular-expression colors across editor ports.</p>
     <ul>
-      <li>Local and global variables now use the neutral variable color instead of inherited Darcula and Islands colors.</li>
-      <li>Resolved instance methods now use function green instead of parameter-like blue.</li>
+      <li>JavaScript regex literals now inherit the string color while retaining more specific injected-regex syntax colors.</li>
     </ul>
   ]]></change-notes>
 

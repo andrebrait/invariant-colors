@@ -125,6 +125,8 @@ fallbacks as `DEFAULT_LOCAL_VARIABLE`, `DEFAULT_GLOBAL_VARIABLE`, and
 `DEFAULT_INSTANCE_METHOD`, respectively. Invariant resets each key with that exact declared
 `baseAttributes` value, clearing the parent override without trying to redirect inheritance.
 Locals and globals therefore render warm neutral, while resolved instance methods render green.
+`JS.REGEXP` likewise resets to its declared `DEFAULT_STRING` fallback, clearing Darcula's
+separate regular-expression color so JavaScript regex literals match the string identity.
 When a reference cannot resolve because its library is missing, the JavaScript highlighter may
 guess a variable or member category instead; a color scheme cannot recover the missing identity.
 
